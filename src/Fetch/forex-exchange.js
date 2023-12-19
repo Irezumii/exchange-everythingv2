@@ -4,10 +4,12 @@ import { useEffect } from "react";
 export default function ForexToForexExchange(props) {
     const forex1 = props.onFirstSelectedOption.value;
     const forex2 = props.onSecoundSelectedOption.value;
-
+    
     const link = `https://eodhd.com/api/real-time/${forex1}${forex2}.FOREX?order=d&api_token=${eodhdKey}&fmt=json`;
-
+    
     useEffect(() => {
+        
+        props.onSetIsLoading(true)
         const controller = new AbortController();
         const signal = controller.signal;
 
@@ -30,6 +32,8 @@ export default function ForexToForexExchange(props) {
                 } else {
                     console.error('Error fetching data:', error);
                 }
+            } finally {
+                props.onSetIsLoading(false)
             }
         };
 
@@ -37,6 +41,7 @@ export default function ForexToForexExchange(props) {
 
         return () => {
             controller.abort();
+            props.onSetIsLoading(false)
         };
     }, [link, props.onFirstSelectedOption.value, props.onSecoundSelectedOption.value]);
 

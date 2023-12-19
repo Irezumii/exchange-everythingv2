@@ -14,6 +14,7 @@ export default function FetchForexToCrypto(props) {
     const link = `http://api.coinlayer.com/live?access_key=${coinLayerKey}&symbols=${cryptoTarget}${moneyTarget}`;
 
     useEffect(() => {
+        props.onSetIsLoading(true)
         const controller = new AbortController();
         const signal = controller.signal;
 
@@ -34,6 +35,8 @@ export default function FetchForexToCrypto(props) {
                 } else {
                     console.error('Error fetching data:', error);
                 }
+            } finally {
+                props.onSetIsLoading(false)
             }
         };
 
@@ -41,6 +44,7 @@ export default function FetchForexToCrypto(props) {
 
         return () => {
             controller.abort();
+            props.onSetIsLoading(false)
         };
     }, [link, props.onSelectedCrypto1, props.onSelectedCrypto2, props.onCryptoExchangeTarget]);
 
