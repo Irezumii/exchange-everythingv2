@@ -18,11 +18,11 @@ export default function FetchCryptoToCrypto(props) {
                 const data = await response.json();
                 props.onSetCryptoFirstApiValue(data)
 
-                console.log("")
-                console.log("first fetch-crypto-to-crypto.js--------------------------")
-                console.log("Fetched Data " + JSON.stringify(data))
-                console.log("first fetch-crypto-to-crypto.js--------------------------")
-                console.log("")
+                // console.log("")
+                // console.log("first fetch-crypto-to-crypto.js--------------------------")
+                // console.log("Fetched Data " + JSON.stringify(data))
+                // console.log("first fetch-crypto-to-crypto.js--------------------------")
+                // console.log("")
 
             } catch (error) {
                 if (error.name === 'AbortError') {
@@ -44,11 +44,11 @@ export default function FetchCryptoToCrypto(props) {
                 const data = await response.json();
                 props.onSetCryptoSecoundApiValue(data)
 
-                console.log("")
-                console.log("secound fetch-crypto-to-crypto.js--------------------------")
-                console.log("Fetched Data " + JSON.stringify(data))
-                console.log("secound fetch-crypto-to-crypto.js--------------------------")
-                console.log("")
+                // console.log("")
+                // console.log("secound fetch-crypto-to-crypto.js--------------------------")
+                // console.log("Fetched Data " + JSON.stringify(data))
+                // console.log("secound fetch-crypto-to-crypto.js--------------------------")
+                // console.log("")
 
             } catch (error) {
                 if (error.name === 'AbortError') {

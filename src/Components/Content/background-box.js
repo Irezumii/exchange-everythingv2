@@ -87,6 +87,12 @@ export default function BackgroundBox() {
 
                 onSelectedCrypto2={selectedCrypto1}
                 onSetSelectedCrypto2={setSelectedCrypto1}
+
+                onInputFirstChange={inputFirstChange} 
+                onSetInputFirstChange={setInputFirstChange}
+
+                onInputSecoundChange={inputSecoundChange} 
+                onSetInputSecoundChange={setInputSecoundChange}
             />
         </div>
     )

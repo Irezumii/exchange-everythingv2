@@ -32,7 +32,7 @@ export default function MySecoundSelect(props) {
         console.log("")
     };
     const handleInputChange = (option) => {
-        props.onSetInputFirstChange(option)
+        props.onSetInputSecoundChange(option)
     }
 
     if (props.onFormButtonSelection === "Crypto") {
@@ -81,8 +81,8 @@ export default function MySecoundSelect(props) {
                     placeholder="Wyszukaj Rynek..."
                 />
                 {stockTrue && <StockSearch 
-                onInputFirstChange={props.onInputFirstChange} 
-                onSetInputFirstChange={props.onSetInputFirstChange}
+                onInputFirstChange={props.onInputSecoundChange} 
+                onSetInputSecoundChange={props.onSetInputSecoundChange}
                 onSetTempSearchState={setTempSearchState}
                 />}
             </>
