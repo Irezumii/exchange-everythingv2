@@ -4,8 +4,6 @@ import invertIMG from './assets/invert.png'
 import { useFetch } from "../hooks/useFetch";
 
 let whatIsFetching;
-let trigger = 0;
-let doubleFetching = false
 // let copyOfFetchedData;
 // let copyOfFetchedData2;
 
@@ -15,7 +13,17 @@ export default function Result(props) {
     const copyOfFetchedData = useRef(null)
     const copyOfFetchedData2 = useRef(null)
     const [invert, setInvert] = useState(false)
-    const { fetchedData, setFetchedData, fetchedData2, setFetchedData2, fetchingForm, isLoading, setFetchingFrom, setSelectedFirstOption, setSelectedSecoundOption, setOnlyOneOption } = useFetch()
+    const {
+        fetchedData,
+        setFetchedData,
+        fetchedData2,
+        setFetchedData2,
+        fetchingForm,
+        setFetchingFrom,
+        isLoading,
+        setIsLoading,
+        setSelectedFirstOption,
+        setSelectedSecoundOption } = useFetch()
 
     let invertValue = false;
 
@@ -26,7 +34,7 @@ export default function Result(props) {
     const form2 = props.onSecoundFormButtonSelection
 
 
-    function inverting(el) {
+    function invertingForms(el) {
         if (form1 === el) {
             option1 = props.onFirstSelectedOption
             option2 = props.onSecoundSelectedOption
@@ -38,29 +46,15 @@ export default function Result(props) {
 
     function handleClick() {
         setInvert(!invert)
-        console.log("inwerting on " + invert)
+        console.log("invertingForms on " + invert)
     }
     useEffect(function () {
-        if (fetchingForm !== null && setSelectedFirstOption !== null & setSelectedSecoundOption !== null) {
+        if (fetchingForm !== null) {
             setFetchingFrom(whatIsFetching)
             setSelectedFirstOption(option1)
             setSelectedSecoundOption(option2)
-            if (doubleFetching === "false") {
-                setOnlyOneOption(null)
-            } else setOnlyOneOption(true)
         }
     }, [option1, option2])
-    // useEffect(() => {
-    //     if (fetchingForm !== null && setSelectedFirstOption !== null & setSelectedSecoundOption !== null) {
-    //         setFetchingFrom(whatIsFetching)
-    //         setSelectedFirstOption(option1)
-    //         setSelectedSecoundOption(option2)
-    //         if (doubleFetching === "false") {
-    //             setOnlyOneOption(null)
-    //         } else setOnlyOneOption(true)
-    //     }
-    // }, [trigger])
-
 
     useEffect(() => {
         setInvert(invertValue)
@@ -69,47 +63,35 @@ export default function Result(props) {
     if (fetchedData !== null) {
         copyOfFetchedData.current = fetchedData
         setFetchedData(null)
-        console.log("copyOfFetchedData " + JSON.stringify(copyOfFetchedData.current))
+        console.log(" passing data to copyOfFetchedData")
     }
     if (fetchedData2 !== null) {
         copyOfFetchedData2.current = fetchedData2
         setFetchedData2(null)
-        console.log("copyOfFetchedData2 " + JSON.stringify(copyOfFetchedData2.current))
+        console.log("passing data to copyOfFetchedData2")
     }
     if (whatIsFetching !== "cryptoToCrypto" && whatIsFetching !== "stockToStock" && whatIsFetching !== "stockToCrypto") {
         copyOfFetchedData2.current = null
     }
-
-    if (fetchedData === null && fetchedData2 === null && form1 !== null && form2 !== null && option1 !== null && option2 !== null) {
-        // nie może być true/false !trigger poniewąz podwójne rendery zwracają cały czas false
-        // trigger = trigger + 1
-        console.log("triggering " + trigger)
-    }
-
 
     switch (true) {
         case (form1 === "Forex" && form2 === "Forex" && option1 !== null && option2 !== null):
 
             invertValue = false
             whatIsFetching = "forexToForex"
-            console.log("whatIsFetching " + whatIsFetching)
-            // inverting("Forex")
             break;
 
         case (((form1 === "Forex" && form2 === "Crypto") || (form1 === "Crypto" && form2 === "Forex")) && option1 !== null && option2 !== null):
 
             invertValue = false
             whatIsFetching = "forexToCrypto"
-            console.log("whatIsFetching " + whatIsFetching)
-            inverting("Forex")
+            invertingForms("Forex")
             break;
 
         case (form1 === "Crypto" && form2 === "Crypto" && option1 !== null && option2 !== null):
 
             invertValue = false
             whatIsFetching = "cryptoToCrypto"
-            console.log("whatIsFetching " + whatIsFetching)
-            // inverting("Crypto")
             break;
 
         case (((form1 === "Stock" && form2 === "Forex") || (form1 === "Forex" && form2 === "Stock")) && option1 !== null && option2 !== null):
@@ -121,20 +103,17 @@ export default function Result(props) {
             }
             invertValue = false
             whatIsFetching = "stockToForex"
-            console.log("whatIsFetching " + whatIsFetching)
-            inverting("Stock")
+            invertingForms("Stock")
             break;
         case ((form1 === "Stock" && form2 === "Stock") && option1 !== null && option2 !== null):
 
             invertValue = false
             whatIsFetching = "stockToStock"
-            console.log("whatIsFetching " + whatIsFetching)
             break;
         case ((form1 === "Stock" && form2 === "Crypto") && option1 !== null && option2 !== null):
 
             invertValue = false
             whatIsFetching = "stockToCrypto"
-            console.log("whatIsFetching " + whatIsFetching)
             break;
 
         default:
@@ -226,9 +205,8 @@ export default function Result(props) {
     // )
     return (
         <>
-            {/* <div className="invert" style={{bottom: "10%"}} onClick={handleClickSearch}>search</div> */}
             {isLoading === false ? <div className="result">{JSON.stringify(copyOfFetchedData)}</div> :
-            <div className="result">Loading...</div>}
+                <div className="result">Loading...</div>}
             <div className="invert" onClick={handleClick}><img src={invertIMG} alt="" /></div>
             {console.log("copyOfFetchedData " + JSON.stringify(copyOfFetchedData.current))}
             {console.log("copyOfFetchedData2 " + JSON.stringify(copyOfFetchedData2.current))}
