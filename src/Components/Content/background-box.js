@@ -12,14 +12,9 @@ export default function BackgroundBox() {
     const [firstSelectedOption, setFirstSelectedOption] = useState(null);
     const [secoundSelectedOption, setSecoundSelectedOption] = useState(null);
 
-    const [forexToForexState, setForexToForexState] = useState(null)
 
     const [inputFirstChange, setInputFirstChange] = useState(null)
     const [inputSecoundChange, setInputSecoundChange] = useState(null)
-
-    const [cryptoExchangeTarget, setCryptoExchangeTarget] = useState(null)
-    const [selectedCrypto1, setSelectedCrypto1] = useState(null)
-    const [selectedCrypto2, setSelectedCrypto2] = useState(null)
 
     return (
         <div className="background-box">
@@ -32,14 +27,9 @@ export default function BackgroundBox() {
                     onFirstSelectedOption={firstSelectedOption}
                     onSetFirstSelectedOption={setFirstSelectedOption}
 
-                    onInputFirstChange={inputFirstChange}
+                    onInputChange={inputFirstChange}
                     onSetInputFirstChange={setInputFirstChange}
 
-                    onCryptoExchangeTarget={cryptoExchangeTarget}
-                    onSetCryptoExchangeTarget={setCryptoExchangeTarget}
-
-                    onSelectedCrypto={selectedCrypto1}
-                    onSetSelectedCrypto={setSelectedCrypto1}
                 />}
                 onItemImage={firstItemImage}
                 onFormButtonSelection={firstFormButtonSelection}
@@ -54,14 +44,9 @@ export default function BackgroundBox() {
                     onSecoundSelectedOption={secoundSelectedOption}
                     onSetSecoundSelectedOption={setSecoundSelectedOption}
 
-                    onInputSecoundChange={inputSecoundChange}
+                    onInputChange={inputSecoundChange}
                     onSetInputSecoundChange={setInputSecoundChange}
 
-                    onCryptoExchangeTarget={cryptoExchangeTarget}
-                    onSetCryptoExchangeTarget={setCryptoExchangeTarget} 
-
-                    onSelectedCrypto={selectedCrypto2}
-                    onSetSelectedCrypto={setSelectedCrypto2}
                     />}
                 onItemImage={secoundItemImage}
                 onFormButtonSelection={secoundFormButtonSelection}
@@ -76,23 +61,11 @@ export default function BackgroundBox() {
                 onSecoundSelectedOption={secoundSelectedOption}
                 onFirstSelectedOption={firstSelectedOption} 
 
-                onForexToForexState={forexToForexState}
-                onSetForexToForexState={setForexToForexState}
+                // onInputChange={inputFirstChange} 
+                // onSetInputFirstChange={setInputFirstChange}
 
-                onCryptoExchangeTarget={cryptoExchangeTarget}
-                onSetCryptoExchangeTarget={setCryptoExchangeTarget}
-
-                onSelectedCrypto1={selectedCrypto2}
-                onSetSelectedCrypto1={setSelectedCrypto2}
-
-                onSelectedCrypto2={selectedCrypto1}
-                onSetSelectedCrypto2={setSelectedCrypto1}
-
-                onInputFirstChange={inputFirstChange} 
-                onSetInputFirstChange={setInputFirstChange}
-
-                onInputSecoundChange={inputSecoundChange} 
-                onSetInputSecoundChange={setInputSecoundChange}
+                // onInputSecoundChange={inputSecoundChange} 
+                // onSetInputSecoundChange={setInputSecoundChange}
             />
         </div>
     )

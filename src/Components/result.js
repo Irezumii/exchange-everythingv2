@@ -61,12 +61,12 @@ export default function Result(props) {
     }, [invertValue])
 
     if (fetchedData !== null) {
-        copyOfFetchedData.current = fetchedData
+        copyOfFetchedData.current = fetchedData 
         setFetchedData(null)
         console.log(" passing data to copyOfFetchedData")
     }
     if (fetchedData2 !== null) {
-        copyOfFetchedData2.current = fetchedData2
+        copyOfFetchedData2.current = fetchedData2 
         setFetchedData2(null)
         console.log("passing data to copyOfFetchedData2")
     }
@@ -96,7 +96,7 @@ export default function Result(props) {
 
         case (((form1 === "Stock" && form2 === "Forex") || (form1 === "Forex" && form2 === "Stock")) && option1 !== null && option2 !== null):
 
-            if (props.onFirstFormButtonSelection === "Stock") {
+            if (form1 === "Stock") {
                 invertValue = false
             } else {
                 invertValue = true
