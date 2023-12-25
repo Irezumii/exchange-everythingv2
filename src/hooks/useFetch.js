@@ -4,10 +4,11 @@ import { eodhdKey, coinLayerKey } from "../accesKeys/accesKeys";
 export function useFetch() {
     const [fetchedData, setFetchedData] = useState(null)
     const [fetchedData2, setFetchedData2] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
     const [fetchingFrom, setFetchingFrom] = useState(null)
     const [selectedFirstOption, setSelectedFirstOption] = useState(null)
     const [selectedSecoundOption, setSelectedSecoundOption] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+
 
     let secoundFetching = false
     let link;
@@ -59,10 +60,10 @@ export function useFetch() {
                 }
             }
             try {
+                console.log(`------------------------------fetching ${fetchSecoundTime ? "Secound Time" : "First Time"}---------------------------`)
                 const response = await fetch(link, { signal });
                 const data = await response.json();
                 settingStateFunction(data);
-                console.log(`------------------------------fetching ${fetchSecoundTime ? "Secound Time" : "First Time"}---------------------------`)
             } catch (error) {
                 if (error.name === 'AbortError') {
                     console.log('Żądanie zostało anulowane.');
@@ -78,6 +79,7 @@ export function useFetch() {
             if (secoundFetching !== false) {
                 await fetchData(setFetchedData2, selectedSecoundOption, true);
             }
+            setIsLoading(false)
         }
         startFetch()
 
@@ -87,5 +89,5 @@ export function useFetch() {
         };
     }, [selectedSecoundOption, selectedFirstOption]);
 
-    return { fetchedData, setFetchedData, fetchedData2, setFetchedData2, fetchingFrom, isLoading,setIsLoading ,setFetchingFrom, setSelectedFirstOption, setSelectedSecoundOption }
+    return { fetchedData, setFetchedData, fetchedData2, setFetchedData2, fetchingFrom ,setFetchingFrom, setSelectedFirstOption, setSelectedSecoundOption, isLoading, setIsLoading }
 }
