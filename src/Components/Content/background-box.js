@@ -5,6 +5,9 @@ import MySecoundSelect from './background-box-components/content-box-components/
 import { useState } from 'react';
 
 export default function BackgroundBox() {
+
+console.log("=======background-box is rednering ==============")
+
     const [firstItemImage, setFirstItemImage] = useState(null)
     const [secoundItemImage, setSecoundItemImage] = useState(null)
     const [firstFormButtonSelection, setFirstFormButtonSelection] = useState(null)

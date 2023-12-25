@@ -13,6 +13,10 @@ export default function Result(props) {
     const fetch2Copy = useRef(null)
     const whatIsFetchingRef = useRef(null)
 
+    function handleInvert(){
+        setInvert(!invert)
+    }
+
     const {
         fetchedData,
         setFetchedData,
@@ -119,9 +123,16 @@ export default function Result(props) {
                     onFetchCopy={fetchCopy}
                     onFetch2Copy={fetch2Copy}
                     onWhatIsFetching={whatIsFetching}
+                    onInvert={invert}
+                    onSetInvert={setInvert}
+                    onFirstFormButtonSelection={props.onFirstFormButtonSelection}
+                    onSecoundFormButtonSelection={props.onSecoundFormButtonSelection}
+                    
                 />
-
             }
+            <div className="invert" onClick={handleInvert}>
+                <img src={invertIMG} alt="invert button" />
+            </div>
         </>
     )
 }       

@@ -5,6 +5,8 @@ import { useState } from "react";
 
 
 export default function ContentBox(props) {
+    console.log("=======content box is rerendering ======================")
+
     return (
         <div className="content-box" style={props.style}>
             <SelectionButtonBox onSetFormButtonSelection={props.onSetFormButtonSelection}

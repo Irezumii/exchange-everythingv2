@@ -6,6 +6,8 @@ import StockSearch from '../../../../Fetch/stock-search';
 
 
 export default function MyFirstSelect(props) {
+    console.log("=======select first is rerendering ======================")
+
 
     const [tempSearchState, setTempSearchState] = useState([])
     const clearingRef = useRef("")

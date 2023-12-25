@@ -7,6 +7,8 @@ import StockSearch from '../../../../Fetch/stock-search';
 
 
 export default function MySecoundSelect(props) {
+    console.log("=======select secound is rerendering ======================")
+
 
     const [tempSearchState, setTempSearchState] = useState([])
     const clearingRef = useRef("")
