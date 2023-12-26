@@ -20,7 +20,7 @@ export default function MySecoundSelect(props) {
 
     const handleChange = (option) => {
         props.onSetSecoundSelectedOption(option);
-        option && props.onSetItemImage(option.image);
+        // option && props.onSetItemImage(option.image);
     };
 
     const handleInputChange = (option) => {

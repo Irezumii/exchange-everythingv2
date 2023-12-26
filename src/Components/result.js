@@ -7,15 +7,15 @@ import DisplayData from "./Content/results-components/display-data";
 export default function Result(props) {
     console.log("==============result is re-rendering====================")
 
-    const [invert, setInvert] = useState(false)
+    // const [invert, setInvert] = useState(false)
 
     const fetchCopy = useRef(null)
     const fetch2Copy = useRef(null)
     const whatIsFetchingRef = useRef(null)
 
-    function handleInvert(){
-        setInvert(!invert)
-    }
+    // function handleInvert(){
+    //     setInvert(!invert)
+    // }
 
     const {
         fetchedData,
@@ -123,16 +123,16 @@ export default function Result(props) {
                     onFetchCopy={fetchCopy}
                     onFetch2Copy={fetch2Copy}
                     onWhatIsFetching={whatIsFetching}
-                    onInvert={invert}
-                    onSetInvert={setInvert}
+                    onInvert={props.invert}
+                    onSetInvert={props.setInvert}
                     onFirstFormButtonSelection={props.onFirstFormButtonSelection}
                     onSecoundFormButtonSelection={props.onSecoundFormButtonSelection}
                     
                 />
             }
-            <div className="invert" onClick={handleInvert}>
+            {/* <div className="invert" onClick={handleInvert}>
                 <img src={invertIMG} alt="invert button" />
-            </div>
+            </div> */}
         </>
     )
 }       

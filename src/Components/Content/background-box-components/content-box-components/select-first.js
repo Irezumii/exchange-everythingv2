@@ -15,7 +15,7 @@ export default function MyFirstSelect(props) {
 
     const handleChange = (option) => {
         props.onSetFirstSelectedOption(option);
-        option && props.onSetItemImage(option.image);
+        // option && props.onSetItemImage(option.image);
     }
 
     const handleInputChange = (option) => {
