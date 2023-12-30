@@ -1,51 +1,48 @@
 import React, { useState, useRef } from 'react';
 import Select from 'react-select';
-import { crypto } from '../../../../data/crypto-forex-names'
-import { money } from '../../../../data/forex-names';
-import StockSearch from '../../../../Fetch/stock-search';
-
+import { crypto } from '../../../../data/CryptoForexNames'
+import { money } from '../../../../data/ForexNames';
+import StockSearch from '../../../../Fetch/StockSearch';
 
 
 export default function MySecoundSelect(props) {
     console.log("=======select secound is rerendering ======================")
 
-
     const [tempSearchState, setTempSearchState] = useState([])
     const clearingRef = useRef("")
 
-
     const form = props.onFormButtonSelection
-    const setInput = props.onSetInputSecoundChange
+    const option2 = props.onSecoundSelectedOption
 
 
     const handleChange = (option) => {
         props.onSetSecoundSelectedOption(option);
-        // option && props.onSetItemImage(option.image);
+        // props.onSetSecoundSelectedOption(option);
     };
 
     const handleInputChange = (option) => {
-        setInput(option)
-        console.log(JSON.stringify(option) + " option")
+        props.onSetInputSecoundChange(option)
+        // props.onSetInputSecoundChange(option)
     }
-
-    console.log(form + " działa i zmienia mi Input")
-    console.log(props.onInputChange)
 
     function clearing (el) {
         if (clearingRef.current !== el) {
             props.onSetSecoundSelectedOption(null)
+            // props.onSetSecoundSelectedOption(null)
             clearingRef.current = el
         }
     }
     if (form === "Crypto") {
         clearing("Crypto")
+
         return (
             <Select
                 className="first-input-text"
-                value={props.onSecoundSelectedOption}
+                value={option2}
+                // value={option2}
                 onChange={handleChange}
                 options={Object.keys(crypto).map((item) => {
-                    return { value: crypto[item].symbol, cryptoValue: crypto[item].symbol, label: crypto[item].name_full, image: crypto[item].icon_url }
+                    return { value: crypto[item].symbol, label: crypto[item].name_full, image: crypto[item].icon_url }
                 })}
                 isClearable
                 isSearchable
@@ -57,25 +54,29 @@ export default function MySecoundSelect(props) {
         return (
             <Select
                 className="first-input-text"
-                value={props.onSecoundSelectedOption}
+                value={option2}
+                // value={option2}
                 onChange={handleChange}
-                options={Object.keys(money).map((item, index) => {
-                    return { value: item, forexValue: item, label: item + "--" + money[item] }
+                options={Object.keys(money).map((item) => {
+                    return { value: item, label: item + "--" + money[item] }
                 })}
                 isClearable
                 isSearchable
                 placeholder="Wyszukaj Walutę..."
             />)
+
     } else if (form === "Stock") {
         clearing("Stock")
+
         return (
             <>
                 <Select
                     className="first-input-text"
-                    value={props.onSecoundSelectedOption}
+                    value={option2}
+                    // value={option2}
                     onChange={handleChange}
                     onInputChange={handleInputChange}
-                    options={tempSearchState.map((item, index) => {
+                    options={tempSearchState.map((item) => {
                         return { value: item.Code, myValuePlace: item.Exchange, country: item.Country, currency: item.Currency, label: item.Code + "--" + item.Name + " " + item.Country }
                     })}
                     isClearable

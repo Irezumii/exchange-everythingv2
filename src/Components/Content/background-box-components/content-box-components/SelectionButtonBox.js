@@ -1,11 +1,9 @@
 
 
 function ChooseButton(props) {
-
+    console.log("======= ChooseN button is rendering ======================")
     const handleClick = () => {
         props.onSetFormButtonSelection(props.name)
-        // props.onSetSelectedOption(" Wybierz Opcję....")
-
     }
     if (props.onFormButtonSelection === props.name) {
         return (
@@ -22,16 +20,10 @@ export default function SelectionButtonBox(props) {
     return (
         <div className="buttons-selection-box">
             <ChooseButton name="Forex" onSetFormButtonSelection={props.onSetFormButtonSelection}
-                onFormButtonSelection={props.onFormButtonSelection} 
-                onSetSelectedOption={props.onSetSelectedOption}
                 />
             <ChooseButton name="Crypto" onSetFormButtonSelection={props.onSetFormButtonSelection}
-                onFormButtonSelection={props.onFormButtonSelection} 
-                onSetSelectedOption={props.onSetSelectedOption}
                 />
             <ChooseButton name="Stock" onSetFormButtonSelection={props.onSetFormButtonSelection}
-                onFormButtonSelection={props.onFormButtonSelection} 
-                onSetSelectedOption={props.onSetSelectedOption}
                 />
         </div>
     )

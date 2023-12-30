@@ -2,20 +2,23 @@
 import { useState, useEffect, useRef } from "react"
 import invertIMG from './assets/invert.png'
 import { useFetch } from "../hooks/useFetch";
-import DisplayData from "./Content/results-components/display-data";
+import DisplayData from "./Content/Result-Components/DisplayData";
+import Favorites from "./Content/Result-Components/Favorites";
 
 export default function Result(props) {
-    console.log("==============result is re-rendering====================")
+    console.log("==============result RRRRRRRRRRRRRRRRR is re-rendering====================")
 
     // const [invert, setInvert] = useState(false)
 
     const fetchCopy = useRef(null)
     const fetch2Copy = useRef(null)
     const whatIsFetchingRef = useRef(null)
+    const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("listOfFavorites")))
 
-    // function handleInvert(){
-    //     setInvert(!invert)
-    // }
+
+    useEffect(function () {
+        localStorage.setItem("listOfFavorites", JSON.stringify(favorites))
+    }, [favorites])
 
     const {
         fetchedData,
@@ -115,21 +118,30 @@ export default function Result(props) {
             {console.log("fetchData " + fetchedData)}
             {console.log("fetchData2 " + fetchedData2)}
 
-            {
-                checkingRenderConditions() && <DisplayData
-                    onIsLoading={isLoading}
-                    onOption1={option1}
-                    onOption2={option2}
-                    onFetchCopy={fetchCopy}
-                    onFetch2Copy={fetch2Copy}
-                    onWhatIsFetching={whatIsFetching}
-                    onInvert={props.invert}
-                    onSetInvert={props.setInvert}
-                    onFirstFormButtonSelection={props.onFirstFormButtonSelection}
-                    onSecoundFormButtonSelection={props.onSecoundFormButtonSelection}
-                    
-                />
-            }
+            <div className="box-for-result">
+                {
+                    checkingRenderConditions() && <DisplayData
+                        onIsLoading={isLoading}
+                        onOption1={option1}
+                        onOption2={option2}
+                        onFetchCopy={fetchCopy}
+                        onFetch2Copy={fetch2Copy}
+                        onWhatIsFetching={whatIsFetching}
+                        onInvert={props.invert}
+                        onSetInvert={props.setInvert}
+                        onFirstFormButtonSelection={props.onFirstFormButtonSelection}
+                        onSecoundFormButtonSelection={props.onSecoundFormButtonSelection}
+                        onSetFavorites={setFavorites}
+                        onAmount={props.onAmount}
+                        onFavorites={favorites}
+
+                    />
+                }
+            </div>
+            <Favorites
+                onFavorites={favorites}
+                onSetFavorites={setFavorites}
+            />
             {/* <div className="invert" onClick={handleInvert}>
                 <img src={invertIMG} alt="invert button" />
             </div> */}

@@ -1,39 +1,70 @@
-import Result from '../result'
-import ContentBox from './background-box-components/content-box'
-import MyFirstSelect from './background-box-components/content-box-components/select-first';
-import MySecoundSelect from './background-box-components/content-box-components/select-secound';
-import { useState } from 'react';
-import  invertIMG  from '../assets/invert.png'
+import Result from '../Result';
+import ContentBox from './background-box-components/ContentBox'
+import MyFirstSelect from './background-box-components/content-box-components/SelectFirst';
+import MySecoundSelect from './background-box-components/content-box-components/SelectSecound';
+import { useState, useReducer } from 'react';
+import invertIMG from '../assets/invert.png'
+
+const reducer = (amount, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { value: amount.value + 1 };
+        case 'DECREMENT':
+            return { value: amount.value - 1 };
+        case 'SET':
+            return { value: action.payload };
+        default:
+            return amount;
+    }
+};
 
 export default function BackgroundBox() {
 
     console.log("=======background-box is rednering ==============")
 
-    // const [firstItemImage, setFirstItemImage] = useState(null)
-    // const [secoundItemImage, setSecoundItemImage] = useState(null)
     const [firstFormButtonSelection, setFirstFormButtonSelection] = useState(null)
     const [secoundFormButtonSelection, setSecoundFormButtonSelection] = useState(null)
+
     const [firstSelectedOption, setFirstSelectedOption] = useState(null);
     const [secoundSelectedOption, setSecoundSelectedOption] = useState(null);
-    const [invert, setInvert] = useState(false)
 
+    const [invert, setInvert] = useState(false)
 
     const [inputFirstChange, setInputFirstChange] = useState(null)
     const [inputSecoundChange, setInputSecoundChange] = useState(null)
+
+    const [amount, dispatch] = useReducer(reducer, { value: 1 });
+
 
     function handleInvert() {
         setInvert(!invert)
     }
 
+    function handleInputChange(e) {
+        const newValue = parseInt(e.target.value, 10);
+        dispatch({ type: 'SET', payload: isNaN(newValue) ? 0 : newValue });
+    }
+
     return (
         <div className="background-box">
             <span className='title'>Exchange Everything</span>
-            <div className='box-for-amount'></div>
+            <div className='box-for-amount'>
+                <h2>Amount</h2>
+                <div>
+                    <button onClick={() => dispatch({ type: 'DECREMENT' })}>-</button>
+                    <input
+                        className='amount-input'
+                        type="text"
+                        value={amount.value}
+                        onChange={handleInputChange}
+                    />
+                    <button onClick={() => dispatch({ type: 'INCREMENT' })}>+</button>
+                </div>
+            </div>
             <div className='box-for-content-box'>
                 <ContentBox
                     style={{ borderRadius: "20px 0 0 20px" }}
                     onMySelect={<MyFirstSelect
-                        // onSetItemImage={setFirstItemImage}
                         onFormButtonSelection={firstFormButtonSelection}
                         onFirstSelectedOption={firstSelectedOption}
                         onSetFirstSelectedOption={setFirstSelectedOption}
@@ -42,7 +73,6 @@ export default function BackgroundBox() {
                         onSetInputFirstChange={setInputFirstChange}
 
                     />}
-                    // onItemImage={firstItemImage}
                     onFormButtonSelection={firstFormButtonSelection}
                     onSetFormButtonSelection={setFirstFormButtonSelection}
                     onSetSelectedOption={setFirstSelectedOption}
@@ -50,7 +80,6 @@ export default function BackgroundBox() {
                 <ContentBox
                     style={{ borderRadius: "0 20px 20px 0" }}
                     onMySelect={<MySecoundSelect
-                        // onSetItemImage={setSecoundItemImage}
                         onFormButtonSelection={secoundFormButtonSelection}
                         onSecoundSelectedOption={secoundSelectedOption}
                         onSetSecoundSelectedOption={setSecoundSelectedOption}
@@ -59,7 +88,6 @@ export default function BackgroundBox() {
                         onSetInputSecoundChange={setInputSecoundChange}
 
                     />}
-                    // onItemImage={secoundItemImage}
                     onFormButtonSelection={secoundFormButtonSelection}
                     onSetFormButtonSelection={setSecoundFormButtonSelection}
                     onSetSelectedOption={setSecoundSelectedOption}
@@ -69,25 +97,18 @@ export default function BackgroundBox() {
                     <img src={invertIMG} alt="invert button" />
                 </div>
             </div>
-            <div className='box-for-result'>
-                <Result
-                    onFirstFormButtonSelection={firstFormButtonSelection}
-                    onSecoundFormButtonSelection={secoundFormButtonSelection}
+            <Result
+                onFirstFormButtonSelection={firstFormButtonSelection}
+                onSecoundFormButtonSelection={secoundFormButtonSelection}
 
-                    onSecoundSelectedOption={secoundSelectedOption}
-                    onFirstSelectedOption={firstSelectedOption}
+                onSecoundSelectedOption={secoundSelectedOption}
+                onFirstSelectedOption={firstSelectedOption}
 
-                    invert={invert}
-                    setInvert={setInvert}
+                invert={invert}
+                setInvert={setInvert}
 
-                // onInputChange={inputFirstChange} 
-                // onSetInputFirstChange={setInputFirstChange}
-
-                // onInputSecoundChange={inputSecoundChange} 
-                // onSetInputSecoundChange={setInputSecoundChange}
-                />
-            </div>
-            <div className='box-for-favorites'></div>
+                onAmount={amount.value}
+            />
             <footer className='footer'></footer>
         </div>
     )

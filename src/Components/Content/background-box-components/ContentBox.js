@@ -1,7 +1,4 @@
-import MyFirstSelect from "./content-box-components/select-first";
-import SelectionButtonBox from "./content-box-components/selections-button-box";
-import { useState } from "react";
-
+import SelectionButtonBox from "./content-box-components/SelectionButtonBox";
 
 export default function ContentBox(props) {
     console.log("=======content box is rerendering ======================")

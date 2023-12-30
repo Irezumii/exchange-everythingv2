@@ -2,11 +2,11 @@ import { eodhdKey } from "../accesKeys/accesKeys";
 import { useEffect } from "react";
 
 export default function StockSearch(props) {
+    console.log("=======stockSearch is rendering ======================")
     const searchString = props.onInputChange;
     const link = `https://eodhd.com/api/search/${searchString}?api_token=${eodhdKey}&fmt=json`;
 
     useEffect(() => {
-        // props.onSetIsLoading(true)
         const controller = new AbortController();
         const signal = controller.signal;
 
@@ -30,7 +30,6 @@ export default function StockSearch(props) {
         return () => {
             controller.abort();
         };
-    // }, [props.onInputChange, props.onFirstSelectedOption, props.onSecoundSelectedOption]);
     }, [props.onInputChange, props.onFirstSelectedOption, props.onSecoundSelectedOption]);
 
     return null;

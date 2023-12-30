@@ -1,5 +1,5 @@
 import './App.css';
-import BackgroundBox from './Components/Content/background-box';
+import BackgroundBox from './Components/Content/BackgroundBox';
 
 
 function App() {

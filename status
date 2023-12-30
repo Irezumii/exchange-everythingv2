@@ -1,0 +1,59 @@
+[33mcommit febecd8f76dd6ce9cf0972314aae6f587b41de5d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Konrad Sordyl <konio180@gmail.com>
+Date:   Tue Dec 26 01:35:01 2023 +0100
+
+    ustawianie layoutu strony problem: loading.. nie wyświetla się przed pierwszym fetchem
+
+[33mcommit a585b09ffd61340afa35705381c46a31d182e952[m
+Author: Konrad Sordyl <konio180@gmail.com>
+Date:   Tue Dec 26 00:49:41 2023 +0100
+
+    wszystko zdaje się działać poprawnie (popatrzeć na rerendery) invert zrobiony i działą poprawnie (pojewiłsię jakiś jeden błąd)
+
+[33mcommit 6958e071c8f4c50bc32ebda749730a0eb7453a54[m
+Author: Konrad Sordyl <konio180@gmail.com>
+Date:   Mon Dec 25 01:56:01 2023 +0100
+
+    wszystko zdaje się działać dosyć prawidłowo (nie wiem jak crypto bi słaby internet i nie mam dostępu do api )
+
+[33mcommit 494bdc59002d5688e7d29074dbda836596f66e69[m
+Author: Konrad Sordyl <konio180@gmail.com>
+Date:   Sat Dec 23 01:56:16 2023 +0100
+
+    dalsze czyszczenie (selectedFirst, SelectedSecound), Zrobienie tak że przy zmianiu formy resetuje się widok w inpucie . problemy Stworzone: Przy zmianie form copyofFetchedData2 nie zachowuje się czasami, Problemy : Za dużo re-renderów, Do zrobienia: Ekran, invert, Loading
+
+[33mcommit c9173bc2c8dc8d9458943e30bc0b2b4f36b9e2a1[m
+Author: Konrad Sordyl <konio180@gmail.com>
+Date:   Fri Dec 22 22:23:41 2023 +0100
+
+    oczyściłęm trochę result i useFetch
+
+[33mcommit dcef60a480e1553f2ea8616348b52dd013f3718b[m
+Author: Konrad Sordyl <konio180@gmail.com>
+Date:   Fri Dec 22 00:34:40 2023 +0100
+
+    przerobiłem wszystkie fetche pod jeden customowy hook (do oczyszczenia) nie wiem do konca jak dziala stock w polaczeniu z crypto odwrotnie oraz invert nie wiem czy dziala
+
+[33mcommit 15c3972d6eae6d21edfa9657538ffcdd3a23cd04[m
+Author: Konrad Sordyl <konio180@gmail.com>
+Date:   Thu Dec 21 04:13:37 2023 +0100
+
+    Forex i Crypto działają poprawnie (oprócz invert który czasem się samoczynnie zmienia), stock(z pierwszej kolumny) działa ale tylko z forexem(w drugiej) ale wywala bład, invert tez jeszcze nie ruszony , tzn ruszony tylko stock dla 1 kolumny dzialajacy wylacznie z forexem dla 2giej
+
+[33mcommit 4682371d515514eec3300ff1ce4b313bc30023d2[m
+Author: Konrad Sordyl <konio180@gmail.com>
+Date:   Tue Dec 19 22:26:17 2023 +0100
+
+    exchange dla rypto i forex działają bez błędów ale do zoptymalizowania , stock nie ruszony jeszcze do zrobienia
+
+[33mcommit 8af9dd68cdada956de052734eed6c4c86c08097b[m
+Author: Konrad Sordyl <konio180@gmail.com>
+Date:   Thu Dec 14 03:23:31 2023 +0100
+
+    do poprawy kilka błędów ale forex i crypto juz są zrobione, został tylko stock
+
+[33mcommit 3da503f45eb5d8888492802e446028e37d7576d0[m
+Author: Konrad Sordyl <konio180@gmail.com>
+Date:   Wed Nov 29 01:47:53 2023 +0100
+
+    Tworzenie
