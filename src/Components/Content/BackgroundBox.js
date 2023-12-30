@@ -1,8 +1,8 @@
-import Result from '../Result';
+import Result from '../result';
 import ContentBox from './background-box-components/ContentBox'
 import MyFirstSelect from './background-box-components/content-box-components/SelectFirst';
 import MySecoundSelect from './background-box-components/content-box-components/SelectSecound';
-import { useState, useReducer } from 'react';
+import { useState, useReducer, useEffect } from 'react';
 import invertIMG from '../assets/invert.png'
 
 const reducer = (amount, action) => {
@@ -13,28 +13,36 @@ const reducer = (amount, action) => {
             return { value: amount.value - 1 };
         case 'SET':
             return { value: action.payload };
+        case 'DEFAULT-VALUE':
+            return { value: 1 }
         default:
             return amount;
     }
 };
 
+
 export default function BackgroundBox() {
-
+    
     console.log("=======background-box is rednering ==============")
-
+    
     const [firstFormButtonSelection, setFirstFormButtonSelection] = useState(null)
     const [secoundFormButtonSelection, setSecoundFormButtonSelection] = useState(null)
-
+    
     const [firstSelectedOption, setFirstSelectedOption] = useState(null);
     const [secoundSelectedOption, setSecoundSelectedOption] = useState(null);
-
+    
     const [invert, setInvert] = useState(false)
-
+    
     const [inputFirstChange, setInputFirstChange] = useState(null)
     const [inputSecoundChange, setInputSecoundChange] = useState(null)
-
+    
     const [amount, dispatch] = useReducer(reducer, { value: 1 });
-
+    
+    useEffect(function(){
+        if(firstSelectedOption !== null && secoundSelectedOption !== null){
+            dispatch({type: 'DEFAULT-VALUE'})
+        }
+    }, [firstSelectedOption, secoundSelectedOption])
 
     function handleInvert() {
         setInvert(!invert)
@@ -51,7 +59,14 @@ export default function BackgroundBox() {
             <div className='box-for-amount'>
                 <h2>Amount</h2>
                 <div>
-                    <button onClick={() => dispatch({ type: 'DECREMENT' })}>-</button>
+                    <button onClick={() => {
+                        if (amount && amount.value >= 2) {
+                            dispatch({ type: 'DECREMENT' })
+                        } else {
+                            console.log("Nie możesz mieć liczby mniejszej niż 1")
+                        }
+
+                    }}>-</button>
                     <input
                         className='amount-input'
                         type="text"
