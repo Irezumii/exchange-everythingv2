@@ -3,53 +3,61 @@
   box-sizing: border-box;
   text-shadow: 4px 4px 9px rgba(57, 59, 74, 1);
 }
-h3{
+.h3-favorites {
   color: white;
   margin-top: 20px;
+  grid-row: 14 / 19;
+  grid-column: 51 / 98;
+  text-align: center;
+}
+.h4-history {
+  grid-column: 4 / 49;
+  grid-row: 46 / 49;
+  color: white;
+  text-align: center;
 }
 .background-box {
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    24deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 1) 53%,
-    rgba(0, 26, 255, 1) 100%
-  );
+  background: url(./Components/assets/background.png);
   height: 100vh;
   width: 100vw;
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: center;
+  display: grid;
   position: relative;
+  grid-template-columns: repeat(100, 1fr);
+  grid-template-rows: repeat(100, 1fr);
 }
 .title {
   font-size: 50px;
+  text-align: center;
   color: white;
+  grid-column: 1/ 101;
+  grid-row: 4 / 11;
 }
 .box-for-amount {
-  width: 100%;
+  /* width: 100%;
   height: 8%;
-  margin-top: 20px;
+  margin-top: 20px; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-flow: column;
   color: white;
+  grid-row: 12 / 18;
+  grid-column: 4 / 49;
 }
-.amount-input{
+.amount-input {
   text-align: center;
   width: 90px;
 }
 .box-for-content-box {
-  width: 100%;
-  height: 15%;
+  /* width: 100%;
+  height: 15%; */
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 10px;
   position: relative;
+  /* flex-flow: column; */
+  grid-column: 4 / 49;
+  grid-row: 20 / 34;
 }
 .content-box {
   background: rgb(63, 62, 98);
@@ -58,7 +66,7 @@ h3{
     rgba(63, 62, 98, 1) 0%,
     rgba(24, 27, 34, 1) 100%
   );
-  width: 45%;
+  width: 50%;
   height: 100%;
   border: 2px solid #6f909b;
   -webkit-box-shadow: 8px 8px 24px 0px rgb(36, 36, 36);
@@ -95,10 +103,9 @@ h3{
     background-color: blueviolet;
   }
 }
-.choosen-button {
+/* .choosen-button {
   width: 29%;
   height: 100%;
-  /* background-color: blue; */
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -114,7 +121,7 @@ h3{
   &:hover {
     background-color: blueviolet;
   }
-}
+} */
 .first-input-text {
   width: 80%;
   margin-top: 20px;
@@ -142,11 +149,13 @@ h3{
   }
 }
 .box-for-result {
-  min-width: 10%;
-  height: 6%;
+  /* min-width: 10%;
+  height: 6%; */
   display: flex;
   justify-content: center;
   align-items: center;
+  grid-column: 4 / 49;
+  grid-row: 35/40;
 }
 .result {
   font-size: 30px;
@@ -165,28 +174,36 @@ h3{
   margin-left: 20px;
   margin-right: 10px;
 }
-.add-img{
+.add-img {
   width: 30px;
   height: auto;
 }
 .box-for-favorites {
-  width: 90%;
+  /* width: 90%;
   height: 45%;
-  margin-top: 10px;
+  margin-top: 10px; */
   display: flex;
   flex-flow: column;
   overflow: auto;
+  grid-row: 20/ 90;
+  grid-column: 51 / 98;
+  position: relative;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.377);
+  -webkit-box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
+  box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
 }
 .header-exchange-box {
   height: 45px;
-  width: 95%;
+  width: 100%;
   display: flex;
   border-bottom: 2px solid rgb(105, 104, 104);
   font-weight: 600;
 }
 .single-exchange-box {
   min-height: 45px;
-  width: 95%;
+  width: 100%;
   display: flex;
   position: relative;
   border-bottom: 1px solid black;
@@ -196,42 +213,63 @@ h3{
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 8%;
+  width: 5%;
   background-color: rgb(206, 199, 187);
-  border-right:1px solid black ;
+  border-right: 1px solid black;
 }
-.exchange-code{
+.exchange-code {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 10%;
+  width: 5%;
   background-color: rgb(182, 174, 182);
+  border-right: 0.5px solid black;
 }
-.exchange-name{
+.exchange-name {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 30%;
+  width: 34%;
   background-color: rgb(215, 216, 213);
-  border-right: 0.5px solid rgb(105, 97, 97) ;
+  border-right: 0.5px solid rgb(105, 97, 97);
 }
-.exchange-value{
+.exchange-value {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 12%;
   background-color: rgb(206, 199, 187);
+  border-right: 0.5px solid rgb(105, 97, 97);
 }
-.delete-img{
-  position: absolute;
-  right: -4.3%;
-  top: 15%;
+.exchange-delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(215, 216, 213);
+  height: 100%;
+  width: 5%;
+}
+.delete-img {
   height: 30px;
   width: auto;
   cursor: pointer;
+}
+.box-for-history {
+  grid-column: 4 / 49;
+  grid-row: 50 / 90;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.377);
+  -webkit-box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
+  box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
+}
+.box-for-legend {
+  background-color: cadetblue;
+  grid-row: 90 / 93;
+  grid-column: 51 / 98;
 }
 .footer {
   background-color: green;

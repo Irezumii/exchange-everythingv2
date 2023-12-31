@@ -1,24 +1,25 @@
 import deleteIMG from '../../assets/delete.png'
 
-export default function Favorites({ onFavorites, onSetFavorites,}) {
+export default function Favorites({ onFavorites, onSetFavorites, }) {
     console.log("======= favorites is rendering ======================")
     const handleDelete = (index) => {
         const newFavorites = [...onFavorites];
-        newFavorites.splice(index, 1); 
+        newFavorites.splice(index, 1);
         onSetFavorites(newFavorites);
     }
 
     return (
         <>
-            <h3>Favorites</h3>
-            { onFavorites !== null && <div className='box-for-favorites'>
+            <h3 className='h3-favorites'>Favorites</h3>
+            {onFavorites !== null && <div className='box-for-favorites'>
                 <div className='header-exchange-box'>
-                    <div className='exchange-amount'>Amount</div>
+                    <div className='exchange-amount'>A</div>
                     <div className='exchange-code'>Type</div>
                     <div className='exchange-name'>From</div>
                     <div className='exchange-code'>Type</div>
                     <div className='exchange-name'>To</div>
                     <div className='exchange-value'>Value</div>
+                    <div className="exchange-delete">D</div>
                 </div>
                 {onFavorites.map((item, index) => {
                     return (
@@ -29,11 +30,12 @@ export default function Favorites({ onFavorites, onSetFavorites,}) {
                             <div className='exchange-code'>{item.form2}</div>
                             <div className='exchange-name'>{item.label2}</div>
                             <div className='exchange-value'>{item.exchange}</div>
-                            <img className="delete-img" onClick={() => { handleDelete(index) }} src={deleteIMG} alt="" />
+                            <div className='exchange-delete'><img className="delete-img" onClick={() => { handleDelete(index) }} src={deleteIMG} alt="" /></div>
                         </div>
                     )
                 })}
             </div>}
+            <div className="box-for-legend"></div>
         </>
     )
 }
