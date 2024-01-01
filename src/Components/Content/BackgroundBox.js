@@ -124,8 +124,6 @@ export default function BackgroundBox() {
 
                 onAmount={amount.value}
             />
-            <h4 className='h4-history'>History</h4>
-            <div className="box-for-history"></div>
             <footer className='footer'></footer>
         </div>
     )

@@ -15,7 +15,6 @@ export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetch
     const fetch2 = onFetch2Copy.current
 
     const cleanData = cleanFetchedData(onWhatIsFetching, code, code2, fetch, fetch2, onAmount, onInvert, onFirstFormButtonSelection, onSecoundFormButtonSelection, onOption1, onOption2)
-    console.log("clean data" + JSON.stringify(cleanData))
 
     useEffect(function () {
         if ((form === "Crypto" && form2 === "Forex") ||
@@ -36,20 +35,22 @@ export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetch
         onSetFavorites(newFavorites)
     }
 
+    console.log("clean DATA ", JSON.stringify(cleanData))
+
     return (
         <>
-            {
-                onIsLoading === false ?
-                    <div className="result">{
-                        cleanData && cleanData !== null && cleanData !== false ?
-                            typeof (cleanData) === "object" ?
-                                cleanData.amount + " " + cleanData.name + " = " + cleanData.exchange + " " + cleanData.name2
-                                : cleanData
-                            : null
+                {
+                    onIsLoading === false ?
+                        <div className="result">{
+                            cleanData && cleanData !== null && cleanData !== false ?
+                                typeof (cleanData) === "object" ?
+                                    cleanData.amount + " " + cleanData.name + " = " + cleanData.exchange + " " + cleanData.name2
+                                    : cleanData
+                                : null
                         }</div>
                         : <div className="result">Loading...</div>
-                    }
-                    {onIsLoading === false ? <img src={addIMG} className="add-img" onClick={handleAdd} alt="" /> : null}
+                }
+                {onIsLoading === false ? <img src={addIMG} className="add-img" onClick={handleAdd} alt="" /> : null}
         </>
     )
 

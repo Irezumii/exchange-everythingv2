@@ -4,19 +4,20 @@ import { useFetch } from "../hooks/useFetch";
 import DisplayData from "./Content/Result-Components/DisplayData";
 import Favorites from "./Content/Result-Components/Favorites";
 import whatAndWhatOrder from "../functions/whatAndWhatOrder";
+import cleanFetchedData from "../functions/cleanFetchedData";
 
 export default function Result(props) {
     console.log("==============result RRRRRRRRRRRRRRRRR is re-rendering====================")
-    
+
     const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("listOfFavorites")))
-    
+
     const fetchCopy = useRef(null)
     const fetch2Copy = useRef(null)
 
     useEffect(function () {
         localStorage.setItem("listOfFavorites", JSON.stringify(favorites))
     }, [favorites])
-    
+
     const {
         fetchedData,
         setFetchedData,
@@ -27,22 +28,24 @@ export default function Result(props) {
         setFetchingFrom,
         setSelectedFirstOption,
         setSelectedSecoundOption } = useFetch()
-        
-        useEffect(function () {
-            setFetchingFrom(whatIsFetching)
-            setSelectedFirstOption(option1)
-            setSelectedSecoundOption(option2)
-            props.onFirstSelectedOption !== null && props.onSecoundSelectedOption !== null && setIsLoading(true)
-        }, [props.onFirstSelectedOption, props.onSecoundSelectedOption])
-        
-        const form1 = props.onFirstFormButtonSelection
-        const form2 = props.onSecoundFormButtonSelection
+
+    useEffect(function () {
+        setFetchingFrom(whatIsFetching)
+        setSelectedFirstOption(option1)
+        setSelectedSecoundOption(option2)
+        props.onFirstSelectedOption !== null && props.onSecoundSelectedOption !== null && setIsLoading(true)
+    }, [props.onFirstSelectedOption, props.onSecoundSelectedOption])
+
+    const form1 = props.onFirstFormButtonSelection
+    const form2 = props.onSecoundFormButtonSelection
+
+    const { whatIsFetching, option1, option2 } = whatAndWhatOrder(props.onFirstSelectedOption, props.onSecoundSelectedOption, form1, form2)
     
-        copyFetchData(fetchedData, setFetchedData, fetchCopy)
-        copyFetchData(fetchedData2, setFetchedData2, fetch2Copy)
-        
-        const {whatIsFetching, option1, option2} = whatAndWhatOrder(props.onFirstSelectedOption, props.onSecoundSelectedOption, form1, form2)
-        
+    
+    copyFetchData(fetchedData, setFetchedData, fetchCopy)
+    copyFetchData(fetchedData2, setFetchedData2, fetch2Copy)
+    
+
     function copyFetchData(data, setData, dataCopy) {
         if (data !== null) {
             dataCopy.current = data
