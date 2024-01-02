@@ -1,56 +1,50 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import addIMG from '../../assets/add.png'
 import cleanFetchedData from '../../../functions/cleanFetchedData'
+import invertIMG from '../../assets/invert.png'
 
-export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetchCopy, onFetch2Copy, onWhatIsFetching, onInvert, onSetInvert, onSecoundFormButtonSelection, onFirstFormButtonSelection, onAmount, onSetFavorites, onFavorites }) {
+export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetchCopy, onFetch2Copy, onWhatIsFetching, onInvert, onAmount, onSetFavorites, onFavorites,invertingTrigger }) {
     console.log("=======Display-data is rerendering ======================")
 
-    const form = onFirstFormButtonSelection
-    const form2 = onSecoundFormButtonSelection
+    const [invert, setInvert] = useState(false)
 
-    const code = onOption1.value
-    const code2 = onOption2.value
-
-    const fetch = onFetchCopy.current
-    const fetch2 = onFetch2Copy.current
-
-    const cleanData = cleanFetchedData(onWhatIsFetching, code, code2, fetch, fetch2, onAmount, onInvert, onFirstFormButtonSelection, onSecoundFormButtonSelection, onOption1, onOption2)
+    const cleanData = cleanFetchedData(onWhatIsFetching, onOption1.value, onOption2.value, onFetchCopy.current, onFetch2Copy.current, onAmount, invert, onOption1, onOption2)
 
     useEffect(function () {
-        if ((form === "Crypto" && form2 === "Forex") ||
-            (form === "Crypto" && form2 === "Stock") ||
-            (form === "Forex" && form2 === "Stock")) {
-            if (onInvert === false) {
-                onSetInvert(true)
-            }
+        if (invertingTrigger === false) {
+            setInvert(false)
         } else {
-            if (onInvert === true) {
-                onSetInvert(false)
-            }
+            setInvert(true)
         }
-    }, [form, form2, onOption1, onOption2])
+    }, [invertingTrigger])
+
 
     function handleAdd() {
         const newFavorites = [...onFavorites, cleanData]
         onSetFavorites(newFavorites)
     }
 
-    console.log("clean DATA ", JSON.stringify(cleanData))
+    function handleInvert() {
+        setInvert(!invert)
+    }
 
     return (
         <>
-                {
-                    onIsLoading === false ?
-                        <div className="result">{
-                            cleanData && cleanData !== null && cleanData !== false ?
-                                typeof (cleanData) === "object" ?
-                                    cleanData.amount + " " + cleanData.name + " = " + cleanData.exchange + " " + cleanData.name2
-                                    : cleanData
-                                : null
-                        }</div>
-                        : <div className="result">Loading...</div>
-                }
-                {onIsLoading === false ? <img src={addIMG} className="add-img" onClick={handleAdd} alt="" /> : null}
+            <div className="invert" onClick={handleInvert}>
+                <img src={invertIMG} alt="invert button" />
+            </div>
+            {
+                onIsLoading === false ?
+                    <div className="result">{
+                        cleanData && cleanData !== null && cleanData !== false ?
+                            typeof (cleanData) === "object" ?
+                                cleanData.amount + " " + cleanData.name + " = " + cleanData.exchange + " " + cleanData.name2
+                                : cleanData
+                            : null
+                    }</div>
+                    : <div className="result">Loading...</div>
+            }
+            {onIsLoading === false ? <img src={addIMG} className="add-img" onClick={handleAdd} alt="" /> : null}
         </>
     )
 

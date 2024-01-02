@@ -1,15 +1,18 @@
-
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef} from "react"
 import { useFetch } from "../hooks/useFetch";
+import { optionsAssign } from "../functions/optionsAssign";
 import DisplayData from "./Content/Result-Components/DisplayData";
 import Favorites from "./Content/Result-Components/Favorites";
-import whatAndWhatOrder from "../functions/whatAndWhatOrder";
-import cleanFetchedData from "../functions/cleanFetchedData";
+import Amount from "./Content/Result-Components/Amount";
+
 
 export default function Result(props) {
     console.log("==============result RRRRRRRRRRRRRRRRR is re-rendering====================")
 
+    const {option1, option2, invertingTrigger} = optionsAssign(props.onFirstSelectedOption, props.onSecoundSelectedOption, props.invertingOptions)
+
     const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("listOfFavorites")))
+    const [amount, setAmount] = useState(1)
 
     const fetchCopy = useRef(null)
     const fetch2Copy = useRef(null)
@@ -17,6 +20,13 @@ export default function Result(props) {
     useEffect(function () {
         localStorage.setItem("listOfFavorites", JSON.stringify(favorites))
     }, [favorites])
+
+    useEffect(function () {
+        setFetchingFrom(props.whatIsFetching)
+        setSelectedFirstOption(option1)
+        setSelectedSecoundOption(option2)
+        props.onFirstSelectedOption !== null && props.onSecoundSelectedOption !== null && setIsLoading(true)
+    }, [option1, option2])
 
     const {
         fetchedData,
@@ -28,23 +38,6 @@ export default function Result(props) {
         setFetchingFrom,
         setSelectedFirstOption,
         setSelectedSecoundOption } = useFetch()
-
-    useEffect(function () {
-        setFetchingFrom(whatIsFetching)
-        setSelectedFirstOption(option1)
-        setSelectedSecoundOption(option2)
-        props.onFirstSelectedOption !== null && props.onSecoundSelectedOption !== null && setIsLoading(true)
-    }, [props.onFirstSelectedOption, props.onSecoundSelectedOption])
-
-    const form1 = props.onFirstFormButtonSelection
-    const form2 = props.onSecoundFormButtonSelection
-
-    const { whatIsFetching, option1, option2 } = whatAndWhatOrder(props.onFirstSelectedOption, props.onSecoundSelectedOption, form1, form2)
-    
-    
-    copyFetchData(fetchedData, setFetchedData, fetchCopy)
-    copyFetchData(fetchedData2, setFetchedData2, fetch2Copy)
-    
 
     function copyFetchData(data, setData, dataCopy) {
         if (data !== null) {
@@ -59,8 +52,18 @@ export default function Result(props) {
         } else return false
     }
 
+    copyFetchData(fetchedData, setFetchedData, fetchCopy)
+    copyFetchData(fetchedData2, setFetchedData2, fetch2Copy)
+
     return (
         <>
+                    <div className='box-for-amount'>
+                <Amount 
+                    option1={option1}
+                    option2={option2}
+                    setAmount={setAmount}
+                />
+            </div>
             <div className="box-for-result">
                 {
                     checkingRenderConditions() && <DisplayData
@@ -69,14 +72,11 @@ export default function Result(props) {
                         onOption2={option2}
                         onFetchCopy={fetchCopy}
                         onFetch2Copy={fetch2Copy}
-                        onWhatIsFetching={whatIsFetching}
-                        onInvert={props.invert}
-                        onSetInvert={props.setInvert}
-                        onFirstFormButtonSelection={props.onFirstFormButtonSelection}
-                        onSecoundFormButtonSelection={props.onSecoundFormButtonSelection}
+                        onWhatIsFetching={props.whatIsFetching}
                         onSetFavorites={setFavorites}
-                        onAmount={props.onAmount}
+                        onAmount={amount}
                         onFavorites={favorites}
+                        invertingTrigger={invertingTrigger}
                     />
                 }
             </div>

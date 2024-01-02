@@ -1,4 +1,4 @@
-export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, fetch2, onAmount, onInvert, onFirstFormButtonSelection, onSecoundFormButtonSelection, onOption1, onOption2) {
+export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, fetch2, onAmount, onInvert, onOption1, onOption2) {
 
     if (onWhatIsFetching === "forexToForex" && fetch && fetch.high && fetch.low) {
         if (code === code2) {
@@ -21,8 +21,8 @@ export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, f
         } else return ({
             name: code2,
             name2: code,
-            form: onSecoundFormButtonSelection,
-            form2: onFirstFormButtonSelection,
+            form: "Fx",
+            form2: "Fx",
             label: onOption2.label,
             label2: onOption1.label,
             amount: onAmount,
