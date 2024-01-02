@@ -5,28 +5,30 @@ import { money } from '../../../../data/ForexNames';
 import StockSearch from '../../../../Fetch/StockSearch';
 
 
-export default function MyFirstSelect(props) {
+export default function SelectOption({ onFormButtonSelection, onSelectedOption, onSetSelectedOption, onSetInput, onInput }) {
     console.log("=======select first is rerendering ======================")
 
     const [tempSearchState, setTempSearchState] = useState([])
     const clearingRef = useRef("")
 
-    const form = props.onFormButtonSelection
-    const option1 = props.onFirstSelectedOption
+    const form = onFormButtonSelection
+    const option = onSelectedOption
+    // const option = props.onFirstSelectedOption
+    console.log("const form = onFormButtonSelection", onFormButtonSelection)
 
     const handleChange = (option) => {
-        props.onSetFirstSelectedOption(option);
+        onSetSelectedOption(option);
         // props.onSetFirstSelectedOption(option);
     }
 
     const handleInputChange = (option) => {
-        props.onSetInputFirstChange(option)
+        onSetInput(option)
         // props.onSetInputFirstChange(option)
     }
 
     function clearing(el) {
         if (clearingRef.current !== el) {
-            props.onSetFirstSelectedOption(null)
+            onSetSelectedOption(null)
             // props.onSetFirstSelectedOption(null)
             clearingRef.current = el
         }
@@ -38,8 +40,8 @@ export default function MyFirstSelect(props) {
         return (
             <Select
                 className="first-input-text"
-                value={option1}
-                // value={option1}
+                value={option}
+                // value={option}
                 onChange={handleChange}
                 options={Object.keys(crypto).map((item) => {
                     return { value: crypto[item].symbol, label: crypto[item].name_full, image: crypto[item].icon_url }
@@ -55,8 +57,8 @@ export default function MyFirstSelect(props) {
 
         return (<Select
             className="first-input-text"
-            value={option1}
-            // value={option1}
+            value={option}
+            // value={option}
             onChange={handleChange}
             options={Object.keys(money).map((item) => {
                 return { value: item, label: item + "--" + money[item] }
@@ -73,8 +75,8 @@ export default function MyFirstSelect(props) {
             <>
                 <Select
                     className="first-input-text"
-                    value={option1}
-                    // value={option1}
+                    value={option}
+                    // value={option}
                     onChange={handleChange}
                     onInputChange={handleInputChange}
                     options={tempSearchState.map((item) => {
@@ -85,7 +87,7 @@ export default function MyFirstSelect(props) {
                     placeholder="Wyszukaj Rynek..."
                 />
                 {tempSearchState && <StockSearch
-                    onInputChange={props.onInputChange}
+                    onInputChange={onInput}
                     onSetTempSearchState={setTempSearchState}
                 />}
             </>

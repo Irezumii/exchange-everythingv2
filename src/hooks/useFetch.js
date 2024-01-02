@@ -10,6 +10,7 @@ export function useFetch() {
     const [isLoading, setIsLoading] = useState(false)
 
 
+
     let secoundFetching = false
     let link;
 
@@ -64,6 +65,7 @@ export function useFetch() {
                 const response = await fetch(link, { signal });
                 const data = await response.json();
                 settingStateFunction(data);
+                console.log("Data ", JSON.stringify(data))
             } catch (error) {
                 if (error.name === 'AbortError') {
                     console.log('Żądanie zostało anulowane.');

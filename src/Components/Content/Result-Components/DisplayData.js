@@ -3,12 +3,14 @@ import addIMG from '../../assets/add.png'
 import cleanFetchedData from '../../../functions/cleanFetchedData'
 import invertIMG from '../../assets/invert.png'
 
-export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetchCopy, onFetch2Copy, onWhatIsFetching, onInvert, onAmount, onSetFavorites, onFavorites,invertingTrigger }) {
+export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetchCopy, onFetch2Copy, onWhatIsFetching, onAmount, onSetFavorites, onFavorites,invertingTrigger }) {
     console.log("=======Display-data is rerendering ======================")
 
     const [invert, setInvert] = useState(false)
 
     const cleanData = cleanFetchedData(onWhatIsFetching, onOption1.value, onOption2.value, onFetchCopy.current, onFetch2Copy.current, onAmount, invert, onOption1, onOption2)
+
+    console.log("CleanData ",JSON.stringify(cleanData))
 
     useEffect(function () {
         if (invertingTrigger === false) {

@@ -1,6 +1,18 @@
+import { calculate } from "./calculationForCleanFetchedData"
+
 export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, fetch2, onAmount, onInvert, onOption1, onOption2) {
 
-    if (onWhatIsFetching === "forexToForex" && fetch && fetch.high && fetch.low) {
+
+
+    const {
+        trigger,
+        fetch1StockValue,
+        fetch2StockValue,
+        SecoundFetch1StockValue,
+        SecoundFetch2StockValue
+    } = calculate(onWhatIsFetching, fetch, fetch2)
+
+    if (trigger === "forexToForex") {
         if (code === code2) {
             return "Same Currency"
         }
@@ -29,7 +41,7 @@ export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, f
             exchange: (onAmount * (1 / ((fetch.high + fetch.low) / 2))).toFixed(4),
         })
 
-    } else if (onWhatIsFetching === "forexToCrypto" && fetch && fetch.rates) {
+    } else if (trigger === "forexToCrypto") {
         if (onInvert === false) {
             return ({
                 name: code,
@@ -53,7 +65,7 @@ export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, f
                 exchange: (onAmount * (1 / fetch.rates[code2])).toFixed(4)
             })
         }
-    } else if (onWhatIsFetching === "cryptoToCrypto" && fetch && fetch2 && fetch.rates && fetch2.rates) {
+    } else if (trigger === "cryptoToCrypto") {
         if (code === code2) {
             return "Same CryptoCurrency"
         }
@@ -81,7 +93,7 @@ export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, f
                 exchange: (onAmount * (1 / (fetch.rates[code] / fetch2.rates[code2]))).toFixed(4)
             })
         }
-    } else if (onWhatIsFetching === "stockToForex" && fetch && fetch[0] && fetch[0].code && fetch[1].code) {
+    } else if (trigger === "stockToForex") {
         if (onInvert === false) {
             return ({
                 name: fetch[0].code,
@@ -91,7 +103,7 @@ export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, f
                 label: onOption1.label,
                 label2: onOption2.label,
                 amount: onAmount,
-                exchange: (onAmount * (((fetch[0].high + fetch[0].low) / 2) * ((fetch[1].high + fetch[1].low) / 2))).toFixed(4)
+                exchange: (onAmount * (fetch1StockValue * fetch2StockValue)).toFixed(4)
             })
         } else {
             return ({
@@ -102,11 +114,11 @@ export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, f
                 label: onOption2.label,
                 label2: onOption1.label,
                 amount: onAmount,
-                exchange: (onAmount * (1 / (((fetch[0].high + fetch[0].low) / 2) * ((fetch[1].high + fetch[1].low) / 2)))).toFixed(4)
+                exchange: (onAmount * (1 / (fetch1StockValue * fetch2StockValue))).toFixed(4)
             })
         }
 
-    } else if (onWhatIsFetching === "stockToCrypto" && fetch && fetch2 && fetch[0] && fetch[0].high && fetch2.rates) {
+    } else if (trigger === "stockToCrypto") {
         if (onInvert === false) {
             return ({
                 name: fetch[0].code,
@@ -116,7 +128,7 @@ export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, f
                 label: onOption1.label,
                 label2: onOption2.label,
                 amount: onAmount,
-                exchange: (onAmount * (((fetch[0].high + fetch[0].low) / 2) / fetch2.rates[code2]).toFixed(4)),
+                exchange: (onAmount * (fetch1StockValue / fetch2.rates[code2]).toFixed(4)),
             })
         } else {
             return ({
@@ -127,10 +139,10 @@ export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, f
                 label: onOption1.label,
                 label2: onOption2.label,
                 amount: onAmount,
-                exchange: (onAmount * (1 / (((fetch[0].high + fetch[0].low) / 2) / fetch2.rates[code2])).toFixed(4)),
+                exchange: (onAmount * (1 / (fetch1StockValue / fetch2.rates[code2])).toFixed(4)),
             })
         }
-    } else if (onWhatIsFetching === "stockToStock" && fetch && fetch2 && fetch[0] && fetch2[0] && fetch[0].code && fetch2[0].code) {
+    } else if (trigger === "stockToStock") {
         if (fetch[0].code === fetch2[0].code) {
             return "Same Stock"
         }
@@ -144,8 +156,8 @@ export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, f
                 label2: onOption2.label,
                 amount: onAmount,
                 exchange: (onAmount * (
-                    (((fetch[0].high + fetch[0].low) / 2) * ((fetch[1].high + fetch[1].low) / 2)) /
-                    (((fetch2[0].high + fetch2[0].low) / 2) * ((fetch2[1].high + fetch2[1].low) / 2))
+                    (fetch1StockValue * fetch2StockValue) /
+                    (SecoundFetch1StockValue * SecoundFetch2StockValue)
                 ).toFixed(4))
             })
         } else {
@@ -158,8 +170,8 @@ export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, f
                 label2: onOption2.label,
                 amount: onAmount,
                 exchange: (onAmount * (1 / (
-                    (((fetch[0].high + fetch[0].low) / 2) * ((fetch[1].high + fetch[1].low) / 2)) /
-                    (((fetch2[0].high + fetch2[0].low) / 2) * ((fetch2[1].high + fetch2[1].low) / 2))
+                    (fetch1StockValue * fetch2StockValue) /
+                    (SecoundFetch1StockValue * SecoundFetch2StockValue)
                 )).toFixed(4))
             })
 
