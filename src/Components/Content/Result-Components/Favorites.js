@@ -11,7 +11,7 @@ export default function Favorites({ onFavorites, onSetFavorites, }) {
     return (
         <>
             <h3 className='h3-favorites'>Favorites</h3>
-            {onFavorites !== null && <div className='box-for-favorites'>
+            <div className='box-for-favorites'>
                 <div className='header-exchange-box'>
                     <div className='exchange-amount'>A</div>
                     <div className='exchange-code'>Type</div>
@@ -21,7 +21,7 @@ export default function Favorites({ onFavorites, onSetFavorites, }) {
                     <div className='exchange-value'>Value</div>
                     <div className="exchange-delete">D</div>
                 </div>
-                {onFavorites.map((item, index) => {
+                {onFavorites !== null && onFavorites.map((item, index) => {
                     return (
                         <div className='single-exchange-box' key={index}>
                             <div className='exchange-amount'>{item.amount}</div>
@@ -34,7 +34,7 @@ export default function Favorites({ onFavorites, onSetFavorites, }) {
                         </div>
                     )
                 })}
-            </div>}
+            </div>
             <div className="box-for-legend"></div>
         </>
     )

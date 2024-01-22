@@ -1,2 +1,2 @@
-export const coinLayerKey = "7705e7451e9ed66112adbd8fd6ec2259"
-export const eodhdKey = "658f41a1c7e7b8.66550432"
+export const coinLayerKey = "f637e4a45a42228075bbd8c340dd2044"
+export const eodhdKey = "65aea66769cbb9.33410538"

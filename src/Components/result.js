@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef} from "react"
+import { useState, useEffect, useRef } from "react"
 import { useFetch } from "../hooks/useFetch";
 import { optionsAssign } from "../functions/optionsAssign";
 import DisplayData from "./Content/Result-Components/DisplayData";
@@ -9,10 +9,11 @@ import Amount from "./Content/Result-Components/Amount";
 export default function Result(props) {
     console.log("==============result RRRRRRRRRRRRRRRRR is re-rendering====================")
 
-    const {option1, option2, invertingTrigger} = optionsAssign(props.onFirstSelectedOption, props.onSecoundSelectedOption, props.invertingOptions)
+    const { option1, option2, invertingTrigger } = optionsAssign(props.onFirstSelectedOption, props.onSecoundSelectedOption, props.invertingOptions)
 
     const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("listOfFavorites")))
     const [amount, setAmount] = useState(1)
+    const [invert, setInvert] = useState(false)
 
     const fetchCopy = useRef(null)
     const fetch2Copy = useRef(null)
@@ -57,8 +58,8 @@ export default function Result(props) {
 
     return (
         <>
-                    <div className='box-for-amount'>
-                <Amount 
+            <div className='box-for-amount'>
+                <Amount
                     option1={option1}
                     option2={option2}
                     setAmount={setAmount}
@@ -77,6 +78,10 @@ export default function Result(props) {
                         onAmount={amount}
                         onFavorites={favorites}
                         invertingTrigger={invertingTrigger}
+                        onFirstFormBoxRef={props.onFirstFormBoxRef}
+                        onSecoundFormBoxRef={props.onSecoundFormBoxRef}
+                        invert={invert}
+                        setInvert={setInvert}
                     />
                 }
             </div>

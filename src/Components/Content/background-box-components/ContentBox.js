@@ -9,7 +9,8 @@ export default function ContentBox(props) {
     const [inputSecoundChange, setInputSecoundChange] = useState(null)
 
     return (
-        <div className="content-box" style={props.style}>
+        <>
+            {/* // <div className="content-box"> */}
             {props.onSetFirstSelectedOption ?
                 <>
                     <SelectionButtonBox onSetFormButtonSelection={props.onSetFirstFormButtonSelection}
@@ -41,6 +42,7 @@ export default function ContentBox(props) {
                     />
                 </>
             }
-        </div>
+            {/* </div> */}
+        </>
     )
 }

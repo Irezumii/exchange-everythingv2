@@ -1,8 +1,10 @@
 import { calculate } from "./calculationForCleanFetchedData"
 
-export default function cleanFetchedData(onWhatIsFetching, code, code2, fetch, fetch2, onAmount, onInvert, onOption1, onOption2) {
+export default function cleanFetchedData(onWhatIsFetching,fetch, fetch2, onAmount, onInvert, onOption1, onOption2) {
 
-
+    const code = onOption1 && onOption1.value
+    const code2 = onOption2 && onOption2.value
+    console.log(" invert in functiuon ", onInvert)
 
     const {
         trigger,
