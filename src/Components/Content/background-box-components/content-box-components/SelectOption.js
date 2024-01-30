@@ -2,7 +2,8 @@ import React, { useState, useRef } from 'react';
 import Select from 'react-select';
 import { crypto } from '../../../../data/CryptoForexNames'
 import { money } from '../../../../data/ForexNames';
-import StockSearch from '../../../../Fetch/StockSearch';
+import StockSearch  from './StockSearch'
+import './SelectOption.css'
 
 
 export default function SelectOption({ onFormButtonSelection, onSelectedOption, onSetSelectedOption, onSetInput, onInput }) {
@@ -13,27 +14,26 @@ export default function SelectOption({ onFormButtonSelection, onSelectedOption, 
 
     const form = onFormButtonSelection
     const option = onSelectedOption
-    // const option = props.onFirstSelectedOption
-    console.log("const form = onFormButtonSelection", onFormButtonSelection)
 
+    //Sets the selected option.
     const handleChange = (option) => {
         onSetSelectedOption(option);
-        // props.onSetFirstSelectedOption(option);
     }
 
+    //Monitors the text input window and dynamically searches for matching stocks.
     const handleInputChange = (option) => {
         onSetInput(option)
-        // props.onSetInputFirstChange(option)
     }
 
+    //Clears the stored option to avoid errors during downloading and on the page.
     function clearing(el) {
         if (clearingRef.current !== el) {
             onSetSelectedOption(null)
-            // props.onSetFirstSelectedOption(null)
             clearingRef.current = el
         }
     }
 
+    //Rendering the appropriate input based on the selected option
     if (form === "Crypto") {
         clearing("Crypto")
 
@@ -41,7 +41,6 @@ export default function SelectOption({ onFormButtonSelection, onSelectedOption, 
             <Select
                 className="first-input-text"
                 value={option}
-                // value={option}
                 onChange={handleChange}
                 options={Object.keys(crypto).map((item) => {
                     return { value: crypto[item].symbol, label: crypto[item].name_full, image: crypto[item].icon_url }
@@ -51,14 +50,12 @@ export default function SelectOption({ onFormButtonSelection, onSelectedOption, 
                 placeholder="Wyszukaj Kryptowalutę..."
             />
         )
-
     } else if (form === "Forex") {
         clearing("Forex")
 
         return (<Select
             className="first-input-text"
             value={option}
-            // value={option}
             onChange={handleChange}
             options={Object.keys(money).map((item) => {
                 return { value: item, label: item + "--" + money[item] }
@@ -67,7 +64,6 @@ export default function SelectOption({ onFormButtonSelection, onSelectedOption, 
             isSearchable
             placeholder="Wyszukaj Walutę..."
         />)
-
     } else if (form === "Stock") {
         clearing("Stock")
 
@@ -76,7 +72,6 @@ export default function SelectOption({ onFormButtonSelection, onSelectedOption, 
                 <Select
                     className="first-input-text"
                     value={option}
-                    // value={option}
                     onChange={handleChange}
                     onInputChange={handleInputChange}
                     options={tempSearchState.map((item) => {
@@ -86,6 +81,7 @@ export default function SelectOption({ onFormButtonSelection, onSelectedOption, 
                     isSearchable
                     placeholder="Wyszukaj Rynek..."
                 />
+                {/* Stock search engine. */}
                 {tempSearchState && <StockSearch
                     onInputChange={onInput}
                     onSetTempSearchState={setTempSearchState}

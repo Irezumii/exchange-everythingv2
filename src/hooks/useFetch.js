@@ -1,35 +1,31 @@
 import { useState, useEffect } from "react"
 import { eodhdKey, coinLayerKey } from "../accesKeys/accesKeys";
 
-export function useFetch() {
+export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, fetchingFrom, setIsLoading, setHistoryTrigger, historyTrigger) {
     const [fetchedData, setFetchedData] = useState(null)
     const [fetchedData2, setFetchedData2] = useState(null)
-    const [fetchingFrom, setFetchingFrom] = useState(null)
-    const [selectedFirstOption, setSelectedFirstOption] = useState(null)
-    const [selectedSecoundOption, setSelectedSecoundOption] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
-
-
 
     let secoundFetching = false
     let link;
 
-
+    //In some exchanges, it is necessary to retrieve data twice; this code block checks what is being exchanged and, if necessary, sets up the second fetch
     if (fetchingFrom === "cryptoToCrypto" || fetchingFrom === "stockToStock" || fetchingFrom === "stockToCrypto") {
         secoundFetching = true
     } else {
         secoundFetching = false
     }
 
-
     useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
+
+        //Prevents an attempt to fetch data when all the data is not yet available
         if (selectedFirstOption === null || selectedSecoundOption === null || fetchingFrom === null) {
             controller.abort()
             return
         }
 
+        //Assigning the 'link' to the currently exchange.
         const fetchData = async (settingStateFunction, fetchParameters, fetchSecoundTime) => {
             switch (fetchingFrom) {
                 case "forexToForex":
@@ -65,31 +61,39 @@ export function useFetch() {
                 const response = await fetch(link, { signal });
                 const data = await response.json();
                 settingStateFunction(data);
-                console.log("Data ", JSON.stringify(data))
+
             } catch (error) {
                 if (error.name === 'AbortError') {
                     console.log('Żądanie zostało anulowane.');
                 } else {
                     console.error('Error fetching data:', error);
                 }
+            } finally {
+                setInvert(false)
             }
-
         };
 
+        //Calling functions / setting up the loading screen and trigger for the 'History' Component to set data.
         async function startFetch() {
             await fetchData(setFetchedData, selectedFirstOption, false);
             if (secoundFetching !== false) {
                 await fetchData(setFetchedData2, selectedSecoundOption, true);
             }
             setIsLoading(false)
+            if(historyTrigger === null){
+                setHistoryTrigger(false)
+            } else {
+                setHistoryTrigger(!historyTrigger)
+            }
         }
         startFetch()
 
+        //Cleaning function
         return () => {
             setFetchedData(null)
             setFetchedData2(null)
         };
     }, [selectedSecoundOption, selectedFirstOption]);
 
-    return { fetchedData, setFetchedData, fetchedData2, setFetchedData2, fetchingFrom ,setFetchingFrom, setSelectedFirstOption, setSelectedSecoundOption, isLoading, setIsLoading }
+    return { fetchedData, setFetchedData, fetchedData2, setFetchedData2, fetchingFrom }
 }

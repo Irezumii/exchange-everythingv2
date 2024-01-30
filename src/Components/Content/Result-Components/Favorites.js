@@ -1,4 +1,5 @@
 import deleteIMG from '../../assets/delete.png'
+import './Favorites.css'
 
 export default function Favorites({ onFavorites, onSetFavorites, }) {
     console.log("======= favorites is rendering ======================")
@@ -14,11 +15,11 @@ export default function Favorites({ onFavorites, onSetFavorites, }) {
             <div className='box-for-favorites'>
                 <div className='header-exchange-box'>
                     <div className='exchange-amount'>A</div>
-                    <div className='exchange-code'>Type</div>
+                    <div className='exchange-code'>T</div>
                     <div className='exchange-name'>From</div>
-                    <div className='exchange-code'>Type</div>
+                    <div className='exchange-code'>T</div>
                     <div className='exchange-name'>To</div>
-                    <div className='exchange-value'>Value</div>
+                    <div className='exchange-value'>Val</div>
                     <div className="exchange-delete">D</div>
                 </div>
                 {onFavorites !== null && onFavorites.map((item, index) => {
@@ -35,7 +36,14 @@ export default function Favorites({ onFavorites, onSetFavorites, }) {
                     )
                 })}
             </div>
-            <div className="box-for-legend"></div>
+            <div className="box-for-legend">
+                <span>A - Amount</span>
+                <span>T - Type</span>
+                <span>Fx - forex</span>
+                <span>St - stock</span>
+                <span>Cr - Crypto</span>
+                <span>Val - Value</span>
+            </div>
         </>
     )
 }

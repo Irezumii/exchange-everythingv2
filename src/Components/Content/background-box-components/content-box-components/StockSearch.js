@@ -1,4 +1,4 @@
-import { eodhdKey } from "../accesKeys/accesKeys";
+import { eodhdKey } from "../../../../accesKeys/accesKeys";
 import { useEffect } from "react";
 
 export default function StockSearch(props) {

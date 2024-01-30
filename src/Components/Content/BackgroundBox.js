@@ -1,35 +1,38 @@
-import Result from '../result';
+import Result from './background-box-components/result';
 import ContentBox from './background-box-components/ContentBox'
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { whatIsFetchingAssign } from '../../functions/whatIsFetchingAssign';
+import './BackgroundBox.css'
 
 export default function BackgroundBox() {
-
     console.log("=======background-box is rednering ==============")
 
+    //States that store types of selected exchange options.
     const [firstFormButtonSelection, setFirstFormButtonSelection] = useState(null)
     const [secoundFormButtonSelection, setSecoundFormButtonSelection] = useState(null)
 
+    //States that store data about selected exchange options.
     const [firstSelectedOption, setFirstSelectedOption] = useState(null);
     const [secoundSelectedOption, setSecoundSelectedOption] = useState(null);
 
+    //Based on the input, creating auxiliary variables to download data.
     const { whatIsFetching, invertingOptions } = whatIsFetchingAssign(firstSelectedOption, secoundSelectedOption, firstFormButtonSelection, secoundFormButtonSelection)
 
-    const firstFormBoxRef = useRef(null)
-    const secoundfFormBoxRef = useRef(null)
 
     return (
         <div className="background-box">
             <span className='title'>Exchange Everything</span>
             <div className='box-for-content-box'>
-                <div className='content-box' ref={firstFormBoxRef}>
+                <div className='content-box'>
+                    {/* The first input box. */}
                     <ContentBox
                         onSetFirstSelectedOption={setFirstSelectedOption}
                         onSetFirstFormButtonSelection={setFirstFormButtonSelection}
                         onFirstFormButtonSelection={firstFormButtonSelection}
                     />
                 </div>
-                <div className='content-box'ref={secoundfFormBoxRef}>
+                <div className='content-box' >
+                {/* The secound input box. */}
                     <ContentBox
                         onSetSecoundSelectedOption={setSecoundSelectedOption}
                         onSetSecoundFormButtonSelection={setSecoundFormButtonSelection}
@@ -37,15 +40,13 @@ export default function BackgroundBox() {
                     />
                 </div>
             </div>
+            {/* A component that handles all the operations on data. */}
             <Result
                 whatIsFetching={whatIsFetching}
                 invertingOptions={invertingOptions}
                 onFirstSelectedOption={firstSelectedOption}
                 onSecoundSelectedOption={secoundSelectedOption}
-                onFirstFormBoxRef={firstFormBoxRef}
-                onSecoundFormBoxRef={secoundfFormBoxRef}
             />
-            <div className="box-for-history"></div>
             <footer className='footer'></footer>
         </div>
     )

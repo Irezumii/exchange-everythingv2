@@ -1,2 +1,3 @@
-export const coinLayerKey = "f637e4a45a42228075bbd8c340dd2044"
-export const eodhdKey = "65aea66769cbb9.33410538"
+// I am aware that the approach of sending and storing access keys is incorrect. It was done solely for portfolio purposes.
+export const coinLayerKey = "afbbcb40533adc12fffa78d8839ade25"
+export const eodhdKey = "65b9614e586d49.56715792"

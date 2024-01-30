@@ -1,10 +1,9 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
+import plusImg from '../../assets/plus.png'
+import minusImg from '../../assets/minus.png'
+import './Amount.css'
 
-
-
-
-
-
+//Setting Amount of exchanging value
 const reducer = (amount, action) => {
     switch (action.type) {
         case 'INCREMENT':
@@ -19,10 +18,6 @@ const reducer = (amount, action) => {
             return amount;
     }
 };
-
-
-
-
 
 export default function Amount({option1, option2, setAmount}) {
     const [amount, dispatch] = useReducer(reducer, { value: 1 });
@@ -47,24 +42,24 @@ export default function Amount({option1, option2, setAmount}) {
 
     return (
         <>
-            <h2>Amount</h2>
-            <div>
-                <button onClick={() => {
+            {/* <h2>Amount</h2> */}
+            <>
+                <img src={minusImg} alt="" className="amount-button" onClick={() => {
                     if (amount && amount.value >= 2) {
                         dispatch({ type: 'DECREMENT' })
                     } else {
                         console.log("Nie możesz mieć liczby mniejszej niż 1")
                     }
 
-                }}>-</button>
+                }}/>
                 <input
                     className='amount-input'
                     type="text"
                     value={amount.value}
                     onChange={handleInputChange}
                 />
-                <button onClick={() => dispatch({ type: 'INCREMENT' })}>+</button>
-            </div>
+                <img src={plusImg} alt="" className="amount-button" onClick={() => dispatch({ type: 'INCREMENT' })}/>
+            </>
         </>
     )
 }

@@ -3,18 +3,19 @@ import addIMG from '../../assets/add.png'
 import cleanFetchedData from '../../../functions/cleanFetchedData'
 import invertIMG from '../../assets/invert.png'
 import { roundExchange } from "../../../functions/RoundExchange"
+import './DisplayData.css'
 
-export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetchCopy, onFetch2Copy, onWhatIsFetching, onAmount, onSetFavorites, onFavorites, invertingTrigger, onFirstFormBoxRef, onSecoundFormBoxRef, invert, setInvert }) {
+export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetchCopy, onFetch2Copy, onWhatIsFetching, onAmount, onSetFavorites, onFavorites, invertingTrigger, invert, setInvert, onHistory, onSetHistory, onHistoryTrigger }) {
     console.log("=======Display-data is rerendering ======================")
 
-    // const [invert, setInvert] = useState(false)
-
+    //Calculations based on retrieved data returning an object with ready-to-use data.
     const cleanData = cleanFetchedData(onWhatIsFetching, onFetchCopy.current, onFetch2Copy.current, onAmount, invert, onOption1, onOption2)
     if (cleanData && cleanData.exchange) {
         cleanData.exchange = roundExchange(cleanData.exchange)
     }
 
-
+//Depending on the order of selected options, the function sets the 'Invert' 
+//(the order of fetching options is predetermined, so if the values are swapped, they need to be inverted).
     useEffect(function () {
         if (invertingTrigger === false) {
             setInvert(false)
@@ -23,18 +24,7 @@ export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetch
         }
     }, [invertingTrigger])
 
-    useEffect(function () {
-        if (invert === false) {
-            // onFirstFormBoxRef.current.style.borderRadius = "20px 0 0 20px"
-            onFirstFormBoxRef.current.style.order = "0"
-            // onSecoundFormBoxRef.current.style.borderRadius = "0 20px 20px 0"
-        } else {
-            // onFirstFormBoxRef.current.style.borderRadius = "0 20px 20px 0"
-            onFirstFormBoxRef.current.style.order = "2"
-            // onSecoundFormBoxRef.current.style.borderRadius = "20px 0 0 20px"
-        }
-    }, [invert])
-
+//Updating "Favorites" array 
     function handleAdd() {
         if (onFavorites === null) {
             onSetFavorites([cleanData])
@@ -44,20 +34,21 @@ export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetch
         }
     }
 
+    // Updating "History" array
+    useEffect(function () {
+        if (onHistoryTrigger !== null) {
+            if (cleanData && cleanData.exchange && !isNaN(cleanData.exchange) && typeof(cleanData) === "object" && cleanData !== undefined) {
+                if (onHistory === null) {
+                    onSetHistory([cleanData])
+                } else {
+                    const newHistory = [...onHistory, cleanData]
+                    onSetHistory(newHistory)
+                }
+            }
+        }
+    }, [onHistoryTrigger])
+
     function handleInvert() {
-        // if (invert === true) {
-        //     onFirstFormBoxRef.current.style.borderRadius = "20px 0 0 20px"
-        //     onFirstFormBoxRef.current.style.order = "2"
-        //     console.log("invert is" , invert ,"setting False")
-        //     onSecoundFormBoxRef.current.style.borderRadius = "0 20px 20px 0"
-        //     setInvert(false)
-        // } else {
-        //     onFirstFormBoxRef.current.style.borderRadius = "0 20px 20px 0"
-        //     onFirstFormBoxRef.current.style.order = "0"
-        //     console.log("invert is" , invert ,"setting true")
-        //     onSecoundFormBoxRef.current.style.borderRadius = "20px 0 0 20px"
-        //     setInvert(true)
-        // }
         setInvert(!invert)
     }
 
@@ -71,7 +62,7 @@ export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetch
                     <div className="result">{
                         cleanData && cleanData !== null && cleanData !== false ?
                             typeof (cleanData) === "object" ?
-                                cleanData.amount + " " + cleanData.name + " = " + cleanData.exchange + " " + cleanData.name2
+                                cleanData.amount + " :" + cleanData.name + " = " + cleanData.exchange + " :" + cleanData.name2
                                 : cleanData
                             : null
                     }</div>

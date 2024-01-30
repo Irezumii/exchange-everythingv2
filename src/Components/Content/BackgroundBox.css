@@ -1,0 +1,110 @@
+.background-box {
+  height: 100vh;
+  width: 100vw;
+  min-height: 800px;
+  min-width: 360px;
+  max-width: 1920px;
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(100, 1fr);
+  grid-template-rows: repeat(100, 1fr);
+  background-color: rgba(0, 0, 0, 0.514);
+}
+.title {
+  font-size: 50px;
+  text-align: center;
+  color: white;
+  grid-column: 1/ 101;
+  grid-row: 4 / 11;
+}
+.box-for-content-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  grid-column: 4 / 49;
+  grid-row: 20 / 34;
+}
+.content-box {
+  background: rgb(63, 62, 98);
+  background: linear-gradient(
+    222deg,
+    rgba(63, 62, 98, 1) 0%,
+    rgba(24, 27, 34, 1) 100%
+  );
+  width: 50%;
+  height: 100%;
+  border: 2px solid #6f909b;
+  -webkit-box-shadow: 8px 8px 24px 0px rgb(36, 36, 36);
+  -moz-box-shadow: 8px 8px 24px 0px rgb(36, 36, 36);
+  box-shadow: 8px 8px 24px 0px rgb(36, 36, 36);
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.content-box:nth-child(1) {
+  border-radius: 20px 0 0 20px;
+}
+.content-box:nth-child(2) {
+  border-radius: 0 20px 20px 0;
+}
+.footer {
+  width: 100%;
+  height: 6%;
+  position: absolute;
+  bottom: 0%;
+}
+
+@media screen and (max-width: 1200px) {
+  .box-for-content-box {
+    flex-flow: column;
+    grid-row: 20/45;
+    grid-column: 4 / 35;
+  }
+  .content-box {
+    width: 100%;
+  }
+  .content-box:nth-child(1) {
+    border-radius: 20px 20px 0 0;
+  }
+  .content-box:nth-child(2) {
+    border-radius: 0 0 20px 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .box-for-content-box {
+    grid-column: 10 / 91;
+    grid-row: 20 / 34;
+    flex-flow: row;
+  }
+  .content-box:nth-child(1) {
+    border-radius: 20px 0 0 20px;
+  }
+  .content-box:nth-child(2) {
+    border-radius: 0 20px 20px 0;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .box-for-content-box {
+    grid-column: 5 / 96;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    display: none;
+  }
+  .content-box:nth-child(1) {
+    border-radius: 20px 20px 0 0;
+  }
+  .content-box:nth-child(2) {
+    border-radius: 0 0 20px 20px;
+  }
+  .box-for-content-box {
+    grid-row: 10 / 34;
+    flex-direction: column;
+  }
+}

@@ -3,6 +3,8 @@ export function whatIsFetchingAssign(option1, option2, form1, form2){
         let invertingOptions ;
         const whatIsFetching = assignWhatIsFetching()
         
+        //Because the API has a specific order of characters to download data, 
+        //this function sets this order and returns information about whether the order is inverted or not.
         function checkingFetchConditions(el1, el2 = el1) {
             if (option1 !== null && option2 !== null) {
                 if (form1 === el1 && form2 === el2) {
@@ -16,6 +18,7 @@ export function whatIsFetchingAssign(option1, option2, form1, form2){
     
         }
     
+        //WhatIsFetching informs the useFetch hook about what will be downloaded
         function assignWhatIsFetching() {
             switch (true) {
                 case (checkingFetchConditions("Forex")):

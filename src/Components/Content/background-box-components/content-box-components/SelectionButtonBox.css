@@ -1,0 +1,54 @@
+.choose-button {
+    width: 29%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: white;
+    border: 2px solid #6f909b;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    &:hover {
+      background-color: blueviolet;
+    }
+  }
+  .choosen-button {
+    border-bottom: 2px solid red;
+  }
+  .buttons-selection-box {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: space-around;
+    /* z-index: 4; */
+  }
+
+  @media screen and (max-width: 1430px) {
+    .choose-button {
+        font-size: 1.9vw;
+      }
+  }
+  @media screen and (max-width: 1200px) {
+    .choose-button {
+        font-size: 26px;
+      }
+  }
+  @media screen and (max-width: 1000px) {
+    .choose-button {
+        font-size: 2.5vw;
+      }
+  }
+  @media screen and (max-width: 768px) {
+    .choose-button {
+        font-size: 23px;
+      }
+  }
+  @media screen and (max-width: 576px) {
+  
+  }
+  @media screen and (max-width: 480px) {
+      
+  }

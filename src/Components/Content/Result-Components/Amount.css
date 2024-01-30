@@ -1,0 +1,20 @@
+.amount-button {
+    margin: 0 10px;
+    width: 30px;
+    height: 30px;
+    -webkit-box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
+    box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
+    cursor: pointer;
+  }
+  .amount-input {
+    text-align: center;
+    width: 90px;
+    height: 30px;
+    font-size: 23px;
+    border-radius: 5px;
+    border: none;
+    -webkit-box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
+    box-shadow: 3px 6px 56px -8px rgba(66, 68, 90, 1);
+  }

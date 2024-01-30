@@ -1,0 +1,45 @@
+.box-for-amount {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  color: white;
+  grid-row: 12 / 18;
+  grid-column: 4 / 49;
+}
+.box-for-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: 4 / 49;
+  grid-row: 35/40;
+  position: relative;
+}
+
+@media screen and (max-width: 1200px) {
+  .box-for-amount {
+    grid-column: 4 / 35;
+  }
+  .box-for-result {
+    grid-row: 46 / 51;
+    grid-column: 4 / 35;
+  }
+}
+@media screen and (max-width: 768px) {
+  .box-for-amount {
+    grid-column: 10 / 91;
+  }
+  .box-for-result {
+    grid-column: 10 / 91;
+    grid-row: 35 / 40;
+  }
+}
+@media screen and (max-width: 576px) {
+  .box-for-result {
+    grid-column: 5 / 96;
+  }
+}
+@media screen and (max-width: 480px) {
+  .box-for-amount {
+    grid-row: 3 / 9;
+  }
+}
