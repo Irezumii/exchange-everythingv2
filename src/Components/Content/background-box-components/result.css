@@ -3,8 +3,14 @@
   justify-content: center;
   align-items: flex-end;
   color: white;
-  grid-row: 12 / 18;
+  grid-row: 13 / 19;
   grid-column: 4 / 49;
+  position: relative;
+  /* background-color: aliceblue; */
+  & h2{
+    position: absolute;
+    top: -12px;
+  }
 }
 .box-for-result {
   display: flex;

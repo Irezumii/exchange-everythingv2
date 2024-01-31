@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Select from 'react-select';
 import { crypto } from '../../../../data/CryptoForexNames'
 import { money } from '../../../../data/ForexNames';
@@ -11,13 +11,34 @@ export default function SelectOption({ onFormButtonSelection, onSelectedOption, 
 
     const [tempSearchState, setTempSearchState] = useState([])
     const clearingRef = useRef("")
+    const [inputDisplay, setInputDisplay] = useState(null)
 
     const form = onFormButtonSelection
-    const option = onSelectedOption
+
+    //clearing the input
+    useEffect(() => {
+        function clearing(el) {
+            if (clearingRef.current !== el) {
+                setInputDisplay(null)
+                onSetSelectedOption(null)
+                clearingRef.current = el
+            }
+        }
+
+        if (form === "Crypto") {
+            clearing("Crypto");
+        } else if (form === "Forex") {
+            clearing("Forex");
+        } else if (form === "Stock") {
+            clearing("Stock");
+        }
+    }, [form, onSetSelectedOption]);
+
 
     //Sets the selected option.
     const handleChange = (option) => {
         onSetSelectedOption(option);
+        setInputDisplay(option)
     }
 
     //Monitors the text input window and dynamically searches for matching stocks.
@@ -25,22 +46,13 @@ export default function SelectOption({ onFormButtonSelection, onSelectedOption, 
         onSetInput(option)
     }
 
-    //Clears the stored option to avoid errors during downloading and on the page.
-    function clearing(el) {
-        if (clearingRef.current !== el) {
-            onSetSelectedOption(null)
-            clearingRef.current = el
-        }
-    }
-
     //Rendering the appropriate input based on the selected option
     if (form === "Crypto") {
-        clearing("Crypto")
-
+        // clearing("Crypto")
         return (
             <Select
                 className="first-input-text"
-                value={option}
+                value={inputDisplay}
                 onChange={handleChange}
                 options={Object.keys(crypto).map((item) => {
                     return { value: crypto[item].symbol, label: crypto[item].name_full, image: crypto[item].icon_url }
@@ -51,11 +63,11 @@ export default function SelectOption({ onFormButtonSelection, onSelectedOption, 
             />
         )
     } else if (form === "Forex") {
-        clearing("Forex")
+        // clearing("Forex")
 
         return (<Select
             className="first-input-text"
-            value={option}
+            value={inputDisplay}
             onChange={handleChange}
             options={Object.keys(money).map((item) => {
                 return { value: item, label: item + "--" + money[item] }
@@ -65,13 +77,13 @@ export default function SelectOption({ onFormButtonSelection, onSelectedOption, 
             placeholder="Wyszukaj Walutę..."
         />)
     } else if (form === "Stock") {
-        clearing("Stock")
+        // clearing("Stock")
 
         return (
             <>
                 <Select
                     className="first-input-text"
-                    value={option}
+                    value={inputDisplay}
                     onChange={handleChange}
                     onInputChange={handleInputChange}
                     options={tempSearchState.map((item) => {

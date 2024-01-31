@@ -42,7 +42,7 @@ export default function Amount({option1, option2, setAmount}) {
 
     return (
         <>
-            {/* <h2>Amount</h2> */}
+            <h2>Amount</h2>
             <>
                 <img src={minusImg} alt="" className="amount-button" onClick={() => {
                     if (amount && amount.value >= 2) {
