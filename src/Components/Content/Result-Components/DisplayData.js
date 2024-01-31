@@ -55,7 +55,7 @@ export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetch
     return (
         <>
             <div className="invert" onClick={handleInvert}>
-                <img src={invertIMG} alt="invert button" />
+                <img src={invertIMG} className="invert-img" alt="invert button" />
             </div>
             {
                 onIsLoading === false ?

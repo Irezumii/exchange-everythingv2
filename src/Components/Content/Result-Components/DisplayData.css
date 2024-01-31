@@ -7,17 +7,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  img {
-    height: 55px;
+}
+.invert-img {
+  height: 55px;
+  width: auto;
+  &:hover {
+    height: 65px;
     width: auto;
-    &:hover {
-      height: 65px;
-      width: auto;
-    }
-    &:active {
-      height: 61px;
-      width: auto;
-    }
+  }
+  &:active {
+    height: 61px;
+    width: auto;
   }
 }
 .result {
