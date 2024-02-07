@@ -9,7 +9,7 @@ export default function DisplayData({ onIsLoading, onOption1, onOption2, onFetch
     console.log("=======Display-data is rerendering ======================")
 
     //Calculations based on retrieved data returning an object with ready-to-use data.
-    const cleanData = cleanFetchedData(onWhatIsFetching, onFetchCopy.current, onFetch2Copy.current, onAmount, invert, onOption1, onOption2)
+    const cleanData =  onFetchCopy && onFetchCopy.current && cleanFetchedData(onWhatIsFetching, onFetchCopy.current, onFetch2Copy.current, onAmount, invert, onOption1, onOption2)
     if (cleanData && cleanData.exchange) {
         cleanData.exchange = roundExchange(cleanData.exchange)
     }

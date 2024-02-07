@@ -59,12 +59,6 @@ export default function Result(props) {
         }
     }
 
-    function checkingRenderConditions() {
-        if (option1 && option2 && option1.value && option2.value && fetchCopy && fetchCopy.current) {
-            return true
-        } else return false
-    }
-
     copyFetchData(fetchedData, setFetchedData, fetchCopy)
     copyFetchData(fetchedData2, setFetchedData2, fetch2Copy)
 
@@ -79,7 +73,7 @@ export default function Result(props) {
             </div>
             <div className="box-for-result">
                 {
-                    checkingRenderConditions() && <DisplayData
+                    option1 && option2 && option1.value && option2.value && <DisplayData
                         onIsLoading={isLoading}
                         onOption1={option1}
                         onOption2={option2}

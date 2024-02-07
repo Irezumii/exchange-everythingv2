@@ -1,10 +1,10 @@
-import { eodhdKey } from "../../../../accesKeys/accesKeys";
+import { eodhdKeys } from "../../../../accesKeys/accesKeys";
 import { useEffect } from "react";
 
 export default function StockSearch(props) {
     console.log("=======stockSearch is rendering ======================")
     const searchString = props.onInputChange;
-    const link = `https://eodhd.com/api/search/${searchString}?api_token=${eodhdKey}&fmt=json`;
+    const link = `https://eodhd.com/api/search/${searchString}?api_token=${eodhdKeys[4]}&fmt=json`;
 
     useEffect(() => {
         const controller = new AbortController();

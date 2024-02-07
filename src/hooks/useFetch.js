@@ -1,9 +1,20 @@
-import { useState, useEffect } from "react"
-import { eodhdKey, coinLayerKey } from "../accesKeys/accesKeys";
+import { useState, useEffect, useRef } from "react"
+import { eodhdKeys, coinLayerKeys } from "../accesKeys/accesKeys";
 
 export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, fetchingFrom, setIsLoading, setHistoryTrigger, historyTrigger) {
     const [fetchedData, setFetchedData] = useState(null)
     const [fetchedData2, setFetchedData2] = useState(null)
+    const currentKeyEodhdIndex = useRef(0)
+    const currentKeyCoinLayerIndex = useRef(0)
+
+    // const keyTrigger = fetchingFrom === "forexToCrypto" || fetchingFrom === "cryptoToCrypto" ? coinLayerKeys : eodhdKeys;
+
+    // const currentKeyEodhd = eodhdKeys[currentKeyEodhdIndex.current];
+    // const currentKeyCoinLayer = coinLayerKeys[currentKeyCoinLayerIndex.current];
+    // console.log(currentKeyEodhd, "currentKeyeodhd")
+    // console.log(currentKeyEodhd, "currentKeyCoinLayer")
+    // console.log(currentKeyEodhdIndex.current, "currentkeyindexeodhd")
+    // console.log(currentKeyCoinLayerIndex.current, "currentkeyindexcoinlayer")
 
     let secoundFetching = false
     let link;
@@ -27,26 +38,33 @@ export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, 
 
         //Assigning the 'link' to the currently exchange.
         const fetchData = async (settingStateFunction, fetchParameters, fetchSecoundTime) => {
+            const keyTrigger = fetchingFrom === "forexToCrypto" || fetchingFrom === "cryptoToCrypto" || (fetchingFrom === "stockToCrypto" && fetchSecoundTime !== false) ? "coinLayer" : "eodhd";
+            const currentKeyEodhd = eodhdKeys[currentKeyEodhdIndex.current];
+            const currentKeyCoinLayer = coinLayerKeys[currentKeyCoinLayerIndex.current];
+            console.log(currentKeyEodhd, "currentKeyeodhd")
+            console.log(currentKeyEodhd, "currentKeyCoinLayer")
+            console.log(currentKeyEodhdIndex.current, "currentkeyindexeodhd")
+            console.log(currentKeyCoinLayerIndex.current, "currentkeyindexcoinlayer")
             switch (fetchingFrom) {
                 case "forexToForex":
-                    link = `https://eodhd.com/api/real-time/${selectedFirstOption.value}${selectedSecoundOption.value}.FOREX?order=d&api_token=${eodhdKey}&fmt=json`;
+                    link = `https://eodhd.com/api/real-time/${selectedFirstOption.value}${selectedSecoundOption.value}.FOREX?order=d&api_token=${currentKeyEodhd}&fmt=json`;
                     break;
                 case "forexToCrypto":
-                    link = `http://api.coinlayer.com/live?access_key=${coinLayerKey}&symbols=${selectedSecoundOption.value}&target=${selectedFirstOption.value}`;
+                    link = `http://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${selectedSecoundOption.value}&target=${selectedFirstOption.value}`;
                     break;
                 case "cryptoToCrypto":
-                    link = `http://api.coinlayer.com/live?access_key=${coinLayerKey}&symbols=${fetchParameters.value}&target=USD`;
+                    link = `http://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${fetchParameters.value}&target=USD`;
                     break;
                 case "stockToForex":
-                    link = `https://eodhd.com/api/real-time/${selectedFirstOption.value}.${selectedFirstOption.myValuePlace}?s=${selectedFirstOption.currency}${selectedSecoundOption.value}.FOREX&api_token=${eodhdKey}&fmt=json`
+                    link = `https://eodhd.com/api/real-time/${selectedFirstOption.value}.${selectedFirstOption.myValuePlace}?s=${selectedFirstOption.currency}${selectedSecoundOption.value}.FOREX&api_token=${currentKeyEodhd}&fmt=json`
                     break;
                 case "stockToCrypto":
                     fetchSecoundTime === false ?
-                        link = `https://eodhd.com/api/real-time/${fetchParameters.value}.${fetchParameters.myValuePlace}?s=${fetchParameters.currency}USD.FOREX&api_token=${eodhdKey}&fmt=json`
-                        : link = `http://api.coinlayer.com/live?access_key=${coinLayerKey}&symbols=${fetchParameters.value}&target=USD`
+                        link = `https://eodhd.com/api/real-time/${fetchParameters.value}.${fetchParameters.myValuePlace}?s=${fetchParameters.currency}USD.FOREX&api_token=${currentKeyEodhd}&fmt=json`
+                        : link = `http://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${fetchParameters.value}&target=USD`
                     break
                 case "stockToStock":
-                    link = `https://eodhd.com/api/real-time/${fetchParameters.value}.${fetchParameters.myValuePlace}?s=${fetchParameters.currency}USD.FOREX&api_token=${eodhdKey}&fmt=json`
+                    link = `https://eodhd.com/api/real-time/${fetchParameters.value}.${fetchParameters.myValuePlace}?s=${fetchParameters.currency}USD.FOREX&api_token=${currentKeyEodhd}&fmt=json`
                     break
 
                 default: if (fetchingFrom === null || fetchingFrom === undefined) {
@@ -61,11 +79,55 @@ export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, 
                 const response = await fetch(link, { signal });
                 const data = await response.json();
                 settingStateFunction(data);
+                console.log(data)
 
+                console.log(data, "syncData.current")
+                console.log(data.success, "syncData.current.success")
+                if (data.success === false) {
+                    console.log("warunkowe w przepisywaniu klucza wykonane ")
+                    if (keyTrigger === "coinLayer") {
+                        if (currentKeyCoinLayerIndex.current < coinLayerKeys.length - 1) {
+                            console.log("mounting next CoinLayer acces key")
+                            currentKeyCoinLayerIndex.current++
+                            startFetch()
+                            return
+                        } else {
+                            console.error("Limit kluczy API dla CoinLayer został wykorzystany")
+                            // currentKeyCoinLayerIndex.current = coinLayerKeys.length - 1
+                        }
+                    }
+                    //  else if (keyTrigger === "eodhd") {
+                    //     if (currentKeyEodhdIndex.current <= eodhdKeys.length - 1) {
+                    //         console.log("mounting next eodhd acces key")
+                    //         currentKeyEodhdIndex.current++
+                    //         startFetch()
+                    //         return
+                    //     } else {
+                    //         console.error("Limit kluczy API dla EodHD został wykorzystany")
+                    //         currentKeyEodhdIndex.current = eodhdKeys.length - 1
+                    //     }
+                    // }
+                }
+                return data
             } catch (error) {
                 if (error.name === 'AbortError') {
                     console.log('Żądanie zostało anulowane.');
-                } else {
+                } else if (error.name === "TypeError") {
+                    if (keyTrigger === "eodhd") {
+                        if (currentKeyEodhdIndex.current < eodhdKeys.length - 1) {
+                            console.log("mounting next eodhd acces key")
+                            currentKeyEodhdIndex.current++
+                            startFetch()
+                            // return
+                        } else {
+                            console.error("Limit kluczy API dla EodHD został wykorzystany")
+                            throw error;
+                            // currentKeyEodhdIndex.current = eodhdKeys.length - 1
+                        }
+                    }
+                }
+                else {
+                    console.log(typeof (error.name), "error.name")
                     console.error('Error fetching data:', error);
                 }
             } finally {
@@ -75,15 +137,19 @@ export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, 
 
         //Calling functions / setting up the loading screen and trigger for the 'History' Component to set data.
         async function startFetch() {
-            await fetchData(setFetchedData, selectedFirstOption, false);
+            const temp1 = await fetchData(setFetchedData, selectedFirstOption, false);
+            let temp2;
             if (secoundFetching !== false) {
-                await fetchData(setFetchedData2, selectedSecoundOption, true);
+                temp2 = await fetchData(setFetchedData2, selectedSecoundOption, true);
             }
-            setIsLoading(false)
-            if(historyTrigger === null){
-                setHistoryTrigger(false)
-            } else {
-                setHistoryTrigger(!historyTrigger)
+
+            if ((secoundFetching === false && temp1) || (secoundFetching !== false && temp1 && temp2)) {
+                setIsLoading(false)
+                if (historyTrigger === null) {
+                    setHistoryTrigger(false)
+                } else {
+                    setHistoryTrigger(!historyTrigger)
+                }
             }
         }
         startFetch()

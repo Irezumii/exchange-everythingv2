@@ -35,16 +35,18 @@
   width: 50%;
   height: 100%;
   border: 2px solid #6f909b;
-  -webkit-box-shadow: 8px 8px 24px 0px rgb(36, 36, 36);
+  /* -webkit-box-shadow: 8px 8px 24px 0px rgb(36, 36, 36);
   -moz-box-shadow: 8px 8px 24px 0px rgb(36, 36, 36);
-  box-shadow: 8px 8px 24px 0px rgb(36, 36, 36);
+  box-shadow: 8px 8px 24px 0px rgb(36, 36, 36); */
   display: flex;
   flex-flow: column;
   justify-content: flex-start;
   align-items: center;
+  z-index: 3;
 }
 .content-box:nth-child(1) {
   border-radius: 20px 0 0 20px;
+  z-index: 4;
 }
 .content-box:nth-child(2) {
   border-radius: 0 20px 20px 0;
