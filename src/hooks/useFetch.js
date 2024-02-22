@@ -7,15 +7,6 @@ export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, 
     const currentKeyEodhdIndex = useRef(0)
     const currentKeyCoinLayerIndex = useRef(0)
 
-    // const keyTrigger = fetchingFrom === "forexToCrypto" || fetchingFrom === "cryptoToCrypto" ? coinLayerKeys : eodhdKeys;
-
-    // const currentKeyEodhd = eodhdKeys[currentKeyEodhdIndex.current];
-    // const currentKeyCoinLayer = coinLayerKeys[currentKeyCoinLayerIndex.current];
-    // console.log(currentKeyEodhd, "currentKeyeodhd")
-    // console.log(currentKeyEodhd, "currentKeyCoinLayer")
-    // console.log(currentKeyEodhdIndex.current, "currentkeyindexeodhd")
-    // console.log(currentKeyCoinLayerIndex.current, "currentkeyindexcoinlayer")
-
     let secoundFetching = false
     let link;
 
@@ -50,10 +41,10 @@ export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, 
                     link = `https://eodhd.com/api/real-time/${selectedFirstOption.value}${selectedSecoundOption.value}.FOREX?order=d&api_token=${currentKeyEodhd}&fmt=json`;
                     break;
                 case "forexToCrypto":
-                    link = `https://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${selectedSecoundOption.value}&target=${selectedFirstOption.value}`;
+                    link = `http://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${selectedSecoundOption.value}&target=${selectedFirstOption.value}`;
                     break;
                 case "cryptoToCrypto":
-                    link = `https://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${fetchParameters.value}&target=USD`;
+                    link = `http://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${fetchParameters.value}&target=USD`;
                     break;
                 case "stockToForex":
                     link = `https://eodhd.com/api/real-time/${selectedFirstOption.value}.${selectedFirstOption.myValuePlace}?s=${selectedFirstOption.currency}${selectedSecoundOption.value}.FOREX&api_token=${currentKeyEodhd}&fmt=json`
@@ -61,7 +52,7 @@ export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, 
                 case "stockToCrypto":
                     fetchSecoundTime === false ?
                         link = `https://eodhd.com/api/real-time/${fetchParameters.value}.${fetchParameters.myValuePlace}?s=${fetchParameters.currency}USD.FOREX&api_token=${currentKeyEodhd}&fmt=json`
-                        : link = `https://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${fetchParameters.value}&target=USD`
+                        : link = `http://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${fetchParameters.value}&target=USD`
                     break
                 case "stockToStock":
                     link = `https://eodhd.com/api/real-time/${fetchParameters.value}.${fetchParameters.myValuePlace}?s=${fetchParameters.currency}USD.FOREX&api_token=${currentKeyEodhd}&fmt=json`
@@ -93,20 +84,8 @@ export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, 
                             return
                         } else {
                             console.error("Limit kluczy API dla CoinLayer został wykorzystany")
-                            // currentKeyCoinLayerIndex.current = coinLayerKeys.length - 1
                         }
                     }
-                    //  else if (keyTrigger === "eodhd") {
-                    //     if (currentKeyEodhdIndex.current <= eodhdKeys.length - 1) {
-                    //         console.log("mounting next eodhd acces key")
-                    //         currentKeyEodhdIndex.current++
-                    //         startFetch()
-                    //         return
-                    //     } else {
-                    //         console.error("Limit kluczy API dla EodHD został wykorzystany")
-                    //         currentKeyEodhdIndex.current = eodhdKeys.length - 1
-                    //     }
-                    // }
                 }
                 return data
             } catch (error) {
@@ -118,11 +97,9 @@ export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, 
                             console.log("mounting next eodhd acces key")
                             currentKeyEodhdIndex.current++
                             startFetch()
-                            // return
                         } else {
                             console.error("Limit kluczy API dla EodHD został wykorzystany")
                             throw error;
-                            // currentKeyEodhdIndex.current = eodhdKeys.length - 1
                         }
                     }
                 }
