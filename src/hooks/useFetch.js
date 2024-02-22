@@ -41,10 +41,10 @@ export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, 
                     link = `https://eodhd.com/api/real-time/${selectedFirstOption.value}${selectedSecoundOption.value}.FOREX?order=d&api_token=${currentKeyEodhd}&fmt=json`;
                     break;
                 case "forexToCrypto":
-                    link = `http://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${selectedSecoundOption.value}&target=${selectedFirstOption.value}`;
+                    link = `https://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${selectedSecoundOption.value}&target=${selectedFirstOption.value}`;
                     break;
                 case "cryptoToCrypto":
-                    link = `http://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${fetchParameters.value}&target=USD`;
+                    link = `https://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${fetchParameters.value}&target=USD`;
                     break;
                 case "stockToForex":
                     link = `https://eodhd.com/api/real-time/${selectedFirstOption.value}.${selectedFirstOption.myValuePlace}?s=${selectedFirstOption.currency}${selectedSecoundOption.value}.FOREX&api_token=${currentKeyEodhd}&fmt=json`
@@ -52,7 +52,7 @@ export function useFetch(setInvert, selectedFirstOption, selectedSecoundOption, 
                 case "stockToCrypto":
                     fetchSecoundTime === false ?
                         link = `https://eodhd.com/api/real-time/${fetchParameters.value}.${fetchParameters.myValuePlace}?s=${fetchParameters.currency}USD.FOREX&api_token=${currentKeyEodhd}&fmt=json`
-                        : link = `http://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${fetchParameters.value}&target=USD`
+                        : link = `https://api.coinlayer.com/live?access_key=${currentKeyCoinLayer}&symbols=${fetchParameters.value}&target=USD`
                     break
                 case "stockToStock":
                     link = `https://eodhd.com/api/real-time/${fetchParameters.value}.${fetchParameters.myValuePlace}?s=${fetchParameters.currency}USD.FOREX&api_token=${currentKeyEodhd}&fmt=json`
