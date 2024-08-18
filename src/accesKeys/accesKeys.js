@@ -1,6 +1,6 @@
 //100 fetches each per month
-export const coinLayerKeys = process.env.REACT_APP_COIN_LAYER_API_KEYS.split(',');
+export const coinLayerKeys = "7adaf56f2b86b6541e27389da0c76a7e"
 
 //500 fetches each per month
-export const eodhdKeys = process.env.REACT_APP_EODHD_API_KEYS.split(',');
+export const eodhdKeys = "66c2573d73d8e8.28482182"
 
